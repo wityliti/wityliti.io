@@ -37,11 +37,11 @@ export default function Services() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
-    <section ref={containerRef} className="py-32 relative overflow-hidden bg-background">
+    <section id="services" ref={containerRef} className="py-32 relative overflow-hidden bg-background">
       <div className="container px-4">
         {/* Section Header */}
         <div className="mb-24 md:mb-32">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -50,7 +50,7 @@ export default function Services() {
             Engineering the <br />
             <span className="text-muted-foreground">Anthropocene.</span>
           </motion.h2>
-          <motion.div 
+          <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: "100px" }}
             viewport={{ once: true }}
@@ -79,12 +79,12 @@ function ServiceCard({ service, index }: { service: any, index: number }) {
       className="group relative p-8 rounded-3xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors overflow-hidden"
     >
       <div className={cn("absolute inset-0 bg-gradient-to-b opacity-0 group-hover:opacity-100 transition-opacity duration-500", service.gradient)} />
-      
+
       <div className="relative z-10">
         <div className={cn("mb-6 p-4 rounded-2xl bg-white/5 w-fit", service.color)}>
           {service.icon}
         </div>
-        
+
         <h3 className="text-2xl font-bold mb-4 font-display">{service.title}</h3>
         <p className="text-muted-foreground leading-relaxed">
           {service.description}

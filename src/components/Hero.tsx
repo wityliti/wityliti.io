@@ -74,7 +74,7 @@ export default function Hero() {
               bClassName="relative inline-flex text-5xl md:text-8xl lg:text-9xl font-display font-bold tracking-tight leading-[0.9] md:leading-[0.85] text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 animate-gradient-x"
             />
           </motion.div>
-          
+
           <motion.div style={{ y: y1 }} className="absolute -top-10 -left-10 hidden md:block opacity-20 text-emerald-500">
             <svg width="200" height="200" viewBox="0 0 100 100" className="animate-[spin_20s_linear_infinite]">
               <path d="M50 0 A50 50 0 0 1 50 100 A50 50 0 0 1 50 0" fill="none" stroke="currentColor" strokeDasharray="5,5" />
@@ -109,14 +109,14 @@ export default function Hero() {
               Our Vision <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </button>
-          
-          <button className="px-8 py-4 text-foreground rounded-full font-semibold text-lg border border-white/10 hover:border-white/20 hover:bg-white/5 hover:text-emerald-400 transition-colors">
+
+          <a href="#services" className="px-8 py-4 text-foreground rounded-full font-semibold text-lg border border-white/10 hover:border-white/20 hover:bg-white/5 hover:text-emerald-400 transition-colors">
             Explore Services
-          </button>
+          </a>
         </motion.div>
       </motion.div>
-      
-      <motion.div 
+
+      <motion.div
         style={{ opacity }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

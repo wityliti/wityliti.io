@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const products = [
   {
     id: 'afforestation',
-    name: 'Afforestation.com',
+    name: 'Afforestation.org',
     tagline: 'The OS for Planetary Regeneration',
     description: 'Satellite imagery, drone mapping, and IoT sensors verify carbon credits with 99.9% accuracy.',
     status: 'Beta Access Open',
@@ -24,7 +24,7 @@ const products = [
     ],
     features: ['Real-time satellite monitoring', 'Immutable carbon ledger', 'Audit-ready ESG reports'],
     link: '/products/afforestation',
-    externalUrl: 'https://afforestation.com',
+    externalUrl: 'https://afforestation.org',
   },
   {
     id: 'cyklo',

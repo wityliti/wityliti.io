@@ -12,8 +12,8 @@ function Home() {
       <main>
         <Hero />
         <Mission />
-        <Services />
         <Partners />
+        <Services />
       </main>
       <Footer />
     </div>

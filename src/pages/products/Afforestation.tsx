@@ -70,7 +70,7 @@ export default function AfforestationProduct() {
                   transition={{ delay: 0.05 }}
                   className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[0.95] tracking-tight"
                 >
-                  Afforestation<span className="text-emerald-500">.com</span>
+                  Afforestation<span className="text-emerald-500">.org</span>
                 </motion.h1>
 
                 <motion.p
@@ -95,7 +95,7 @@ export default function AfforestationProduct() {
                     Request Access
                   </Link>
                   <a
-                    href="https://afforestation.com"
+                    href="https://afforestation.org"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-lg bg-emerald-500 text-white hover:bg-emerald-600 transition-colors"
