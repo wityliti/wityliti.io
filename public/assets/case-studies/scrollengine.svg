@@ -1,0 +1,66 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgScroll" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#083344" />
+      <stop offset="1" stop-color="#164e63" />
+    </linearGradient>
+    <linearGradient id="routeGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22d3ee" />
+      <stop offset="1" stop-color="#06b6d4" />
+    </linearGradient>
+    <filter id="glowScroll" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="15" result="coloredBlur" />
+      <feMerge>
+        <feMergeNode in="coloredBlur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgScroll)" />
+  
+  <!-- Grid Pattern -->
+  <mask id="gridMaskScroll">
+    <rect width="1200" height="630" fill="white" />
+    <path d="M0 630 L1200 0" stroke="black" stroke-width="1" />
+    <pattern id="gridScroll" width="80" height="80" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="80" height="80" fill="none" stroke="black" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+    <rect width="1200" height="630" fill="url(#gridScroll)" />
+  </mask>
+  <rect width="1200" height="630" fill="#ffffff" fill-opacity="0.04" mask="url(#gridMaskScroll)" />
+
+  <!-- Main Graphic: Route Nodes -->
+  <g transform="translate(600, 315) scale(1)" filter="url(#glowScroll)">
+     <!-- Connecting Lines -->
+     <path d="M-150 100 L-50 -50 L100 50 L200 -100" stroke="#22d3ee" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 10" opacity="0.6" />
+     <path d="M-150 100 L0 150 L100 50" stroke="#0891b2" stroke-width="2" stroke-linecap="round" opacity="0.4" />
+     
+     <!-- Nodes -->
+     <circle cx="-150" cy="100" r="15" fill="#06b6d4" />
+     <circle cx="-150" cy="100" r="25" stroke="#22d3ee" stroke-width="1" opacity="0.5" />
+     
+     <circle cx="-50" cy="-50" r="10" fill="#06b6d4" />
+     
+     <circle cx="100" cy="50" r="20" fill="#22d3ee" />
+     <circle cx="100" cy="50" r="35" stroke="#67e8f9" stroke-width="2" opacity="0.6" />
+     
+     <circle cx="200" cy="-100" r="12" fill="#06b6d4" />
+     
+     <circle cx="0" cy="150" r="8" fill="#155e75" />
+
+     <!-- Moving Packet -->
+     <circle cx="-50" cy="-50" r="6" fill="white">
+        <animate attributeName="cx" values="-150; -50; 100; 200" keyTimes="0; 0.33; 0.66; 1" dur="3s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="100; -50; 50; -100" keyTimes="0; 0.33; 0.66; 1" dur="3s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3s" repeatCount="indefinite" />
+     </circle>
+  </g>
+
+  <!-- Decorative Rings -->
+  <circle cx="600" cy="315" r="320" stroke="#22d3ee" stroke-width="1" stroke-dasharray="25 25" opacity="0.2">
+      <animateTransform attributeName="transform" type="rotate" from="360 600 315" to="0 600 315" dur="120s" repeatCount="indefinite" />
+  </circle>
+
+</svg>

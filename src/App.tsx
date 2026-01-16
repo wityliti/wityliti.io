@@ -18,6 +18,10 @@ import CyfinitiAcquisition from "@/pages/blog/CyfinitiAcquisition";
 import TesePartnership from "@/pages/blog/TesePartnership";
 import AfforestationLaunch from "@/pages/blog/AfforestationLaunch";
 
+import TeseCaseStudy from "@/pages/case-studies/Tese";
+import ScrollEngineCaseStudy from "@/pages/case-studies/ScrollEngine";
+import OgowCaseStudy from "@/pages/case-studies/Ogow";
+
 export default function App() {
   return (
     <Router>
@@ -25,6 +29,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/case-studies" element={<CaseStudies />} />
+        <Route path="/case-studies/tese" element={<TeseCaseStudy />} />
+        <Route path="/case-studies/scrollengine" element={<ScrollEngineCaseStudy />} />
+        <Route path="/case-studies/ogow" element={<OgowCaseStudy />} />
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/afforestation" element={<AfforestationProduct />} />

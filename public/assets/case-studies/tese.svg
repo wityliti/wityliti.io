@@ -1,0 +1,58 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#022c22" />
+      <stop offset="1" stop-color="#064e3b" />
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="600" y1="200" x2="600" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#34d399" />
+      <stop offset="1" stop-color="#059669" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="20" result="coloredBlur" />
+      <feMerge>
+        <feMergeNode in="coloredBlur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+  
+  <!-- Grid Pattern -->
+  <mask id="gridMaskTese">
+    <rect width="1200" height="630" fill="white" />
+    <path d="M0 0L1200 630" stroke="black" stroke-width="2" />
+    <path d="M1200 0L0 630" stroke="black" stroke-width="2" />
+    <pattern id="gridTese" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="black" stroke-width="1" opacity="0.2"/>
+    </pattern>
+    <rect width="1200" height="630" fill="url(#gridTese)" />
+  </mask>
+  <rect width="1200" height="630" fill="#ffffff" fill-opacity="0.05" mask="url(#gridMaskTese)" />
+
+  <!-- Main Graphic: Globe/Leaf/Growth -->
+  <g transform="translate(600, 315) scale(0.9)" filter="url(#glow)">
+     <!-- Globe Wireframe Background -->
+     <circle cx="0" cy="0" r="180" stroke="#10b981" stroke-width="2" stroke-opacity="0.3" fill="none" />
+     <ellipse cx="0" cy="0" rx="180" ry="60" stroke="#10b981" stroke-width="1" stroke-opacity="0.2" fill="none" transform="rotate(45)"/>
+     <ellipse cx="0" cy="0" rx="180" ry="60" stroke="#10b981" stroke-width="1" stroke-opacity="0.2" fill="none" transform="rotate(-45)"/>
+
+     <!-- Rising Bar Chart / Leaf Hybrid -->
+     <path d="M-100 100 L-60 100 L-60 -20 L-100 -20 Z" fill="#34d399" opacity="0.4" />
+     <path d="M-40 100 L0 100 L0 -80 L-40 -80 Z" fill="#34d399" opacity="0.6" />
+     <path d="M20 100 L60 100 L60 -140 L20 -140 Z" fill="#34d399" opacity="0.8" />
+     <path d="M80 100 L120 100 L120 -180 L80 -180 Z" fill="#34d399" opacity="1.0" />
+
+     <!-- Stylized Leaf Overlay -->
+     <path d="M0 -60 C30 -100 80 -120 120 -120 C120 -40 80 20 0 60 C-80 20 -120 -40 -120 -120 C-80 -120 -30 -100 0 -60" fill="none" stroke="#6ee7b7" stroke-width="4" transform="translate(0, -120) scale(0.8)" />
+  </g>
+
+  <!-- Decorative Orbit -->
+  <circle cx="600" cy="315" r="280" stroke="#34d399" stroke-width="1" stroke-dasharray="10 30" opacity="0.3" />
+  <circle cx="600" cy="315" r="350" stroke="#059669" stroke-width="2" stroke-dasharray="60 40" opacity="0.1">
+    <animateTransform attributeName="transform" type="rotate" from="0 600 315" to="360 600 315" dur="60s" repeatCount="indefinite" />
+  </circle>
+
+</svg>

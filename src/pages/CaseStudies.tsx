@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, BarChart3, Globe, Leaf, Lock, Truck } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cn } from '@/lib/utils';
@@ -15,7 +16,7 @@ const cases = [
     color: 'emerald',
     icon: <Globe className="w-12 h-12 text-emerald-400" />,
     gradient: 'from-emerald-500/20 via-emerald-500/5 to-transparent',
-    image: '/assets/case-studies/tese.png'
+    image: '/assets/case-studies/tese.svg'
   },
   {
     id: 'scrollengine',
@@ -27,7 +28,7 @@ const cases = [
     color: 'cyan',
     icon: <Truck className="w-12 h-12 text-cyan-400" />,
     gradient: 'from-cyan-500/20 via-cyan-500/5 to-transparent',
-    image: '/assets/case-studies/scrollengine.png'
+    image: '/assets/case-studies/scrollengine.svg'
   },
   {
     id: 'ogow',
@@ -39,7 +40,7 @@ const cases = [
     color: 'indigo',
     icon: <Lock className="w-12 h-12 text-indigo-400" />,
     gradient: 'from-indigo-500/20 via-indigo-500/5 to-transparent',
-    image: '/assets/case-studies/ogow.png'
+    image: '/assets/case-studies/ogow.svg'
   }
 ];
 
@@ -106,9 +107,7 @@ export default function CaseStudies() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
                     {/* Floating Icon */}
-                    <div className="absolute bottom-6 left-6 p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-white/50 shadow-sm text-slate-800">
-                      {project.icon}
-                    </div>
+
                   </div>
                 </div>
 
@@ -152,15 +151,17 @@ export default function CaseStudies() {
                       </div>
 
                       <div className="pt-8">
-                        <motion.button
-                          whileHover={{ x: 10 }}
-                          className={cn(
-                            "flex items-center gap-2 text-lg font-semibold transition-colors",
-                            `text-${project.color}-600 hover:text-${project.color}-500`
-                          )}
-                        >
-                          Read Full Story <ArrowRight className="w-5 h-5" />
-                        </motion.button>
+                        <Link to={`/case-studies/${project.id}`}>
+                          <motion.button
+                            whileHover={{ x: 10 }}
+                            className={cn(
+                              "flex items-center gap-2 text-lg font-semibold transition-colors",
+                              `text-${project.color}-600 hover:text-${project.color}-500`
+                            )}
+                          >
+                            Read Full Story <ArrowRight className="w-5 h-5" />
+                          </motion.button>
+                        </Link>
                       </div>
                     </div>
                   </div>
