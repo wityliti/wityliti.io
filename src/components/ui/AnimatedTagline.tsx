@@ -263,12 +263,12 @@ export default function AnimatedTagline({
       style={
         fixedWidth
           ? {
-              display: variant === 'stacked' ? 'flex' : 'inline-flex',
-              justifyContent: 'center',
-              minWidth: variant === 'stacked' ? '100%' : maxAWidth || undefined,
-              whiteSpace: 'nowrap',
-              overflow: 'visible',
-            }
+            display: variant === 'stacked' ? 'flex' : 'inline-flex',
+            justifyContent: 'center',
+            minWidth: variant === 'stacked' ? '100%' : maxAWidth || undefined,
+            whiteSpace: 'nowrap',
+            overflow: 'visible',
+          }
           : { whiteSpace: 'nowrap' }
       }
     >
@@ -299,12 +299,12 @@ export default function AnimatedTagline({
       style={
         fixedWidth
           ? {
-              display: variant === 'stacked' ? 'flex' : 'inline-flex',
-              justifyContent: 'center',
-              minWidth: variant === 'stacked' ? '100%' : maxBWidth || undefined,
-              whiteSpace: 'nowrap',
-              overflow: 'visible',
-            }
+            display: variant === 'stacked' ? 'flex' : 'inline-flex',
+            justifyContent: 'center',
+            minWidth: variant === 'stacked' ? '100%' : maxBWidth || undefined,
+            whiteSpace: 'nowrap',
+            overflow: 'visible',
+          }
           : { whiteSpace: 'nowrap' }
       }
     >
@@ -337,10 +337,10 @@ export default function AnimatedTagline({
       style={
         fixedWidth && variant === 'stacked' && containerWidthPx
           ? {
-              display: 'inline-block',
-              minWidth: containerWidthPx,
-              overflow: 'visible',
-            }
+            display: 'inline-block',
+            minWidth: containerWidthPx,
+            overflow: 'visible',
+          }
           : { overflow: 'visible' }
       }
     >
@@ -368,9 +368,9 @@ export default function AnimatedTagline({
         className="relative"
       >
         {variant === 'stacked' ? (
-          <div className="relative flex flex-col items-center">
+          <div className="relative flex flex-col items-center gap-8 md:gap-2">
             {ANode}
-            <span className={midClassName} style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+            <span className={`${midClassName} font-black text-black backdrop-blur-md bg-white/80 shadow-sm rounded-full px-6 py-2 border border-black/5`} style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
               {mid}
             </span>
             {BNode}
@@ -378,7 +378,7 @@ export default function AnimatedTagline({
         ) : (
           <h1 className="relative">
             {ANode}
-            <span className={midClassName}>{mid}</span>
+            <span className={`${midClassName} font-black text-black backdrop-blur-md bg-white/80 shadow-sm rounded-full px-6 py-2 border border-black/5`}>{mid}</span>
             {BNode}
           </h1>
         )}

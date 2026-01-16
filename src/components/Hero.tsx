@@ -1,11 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import InteractiveBackground from './ui/InteractiveBackground';
+import ConvergingBackground from './ui/ConvergingBackground';
 import AnimatedTagline from './ui/AnimatedTagline';
 import Lenis from '@studio-freight/lenis';
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
+  const [convergence, setConvergence] = useState<{ x: number, y: number } | null>(null);
+
   // Initialize Smooth Scroll
   useEffect(() => {
     const lenis = new Lenis({
@@ -29,18 +33,46 @@ export default function Hero() {
     };
   }, []);
 
+  // Track the position of the tagline for dynamic background convergence
+  useEffect(() => {
+    const updateConvergence = () => {
+      if (!sectionRef.current || !targetRef.current) return;
+
+      const sectionRect = sectionRef.current.getBoundingClientRect();
+      const targetRect = targetRef.current.getBoundingClientRect();
+
+      // Calculate center of target relative to section
+      // We want the coordinate within the section's coordinate space (0,0 is top-left of section)
+      const x = (targetRect.left + targetRect.width / 2) - sectionRect.left;
+      const y = (targetRect.top + targetRect.height / 2) - sectionRect.top;
+
+      setConvergence({ x, y });
+    };
+
+    updateConvergence();
+    window.addEventListener('resize', updateConvergence);
+
+    // Also update after a short delay to ensure layout is stable (fonts loaded etc)
+    const t = setTimeout(updateConvergence, 500);
+
+    return () => {
+      window.removeEventListener('resize', updateConvergence);
+      clearTimeout(t);
+    };
+  }, []);
+
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -100]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-background">
+    <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-background">
       {/* Dynamic Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-900/10 via-background to-background z-0" />
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background z-10" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-900/20 via-background to-background z-0" />
-        <InteractiveBackground />
+        <ConvergingBackground convergence={convergence} />
       </div>
 
       <motion.div style={{ opacity }} className="container relative z-20 px-4 pt-20 text-center">
@@ -66,13 +98,15 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
-            <AnimatedTagline
-              className="relative inline-block"
-              variant="stacked"
-              aClassName="relative inline-flex text-5xl md:text-8xl lg:text-9xl font-display font-bold tracking-tight leading-[0.9] md:leading-[0.85] text-foreground"
-              midClassName="pointer-events-none inline-block text-[10px] md:text-xs font-mono tracking-[0.55em] text-muted-foreground/70"
-              bClassName="relative inline-flex text-5xl md:text-8xl lg:text-9xl font-display font-bold tracking-tight leading-[0.9] md:leading-[0.85] text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 animate-gradient-x"
-            />
+            <div ref={targetRef} className="inline-block">
+              <AnimatedTagline
+                className="relative inline-block"
+                variant="stacked"
+                aClassName="relative inline-flex text-5xl md:text-8xl lg:text-9xl font-display font-bold tracking-tight leading-[0.9] md:leading-[0.85] text-foreground"
+                midClassName="relative z-10 pointer-events-none inline-block text-[10px] md:text-xs font-bold tracking-[0.55em] text-foreground"
+                bClassName="relative inline-flex text-5xl md:text-8xl lg:text-9xl font-display font-bold tracking-tight leading-[0.9] md:leading-[0.85] text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 animate-gradient-x"
+              />
+            </div>
           </motion.div>
 
           <motion.div style={{ y: y1 }} className="absolute -top-10 -left-10 hidden md:block opacity-20 text-emerald-500">
