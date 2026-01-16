@@ -1,0 +1,7 @@
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="50" rx="8" fill="#0F172A"/>
+  <circle cx="25" cy="25" r="12" fill="#10B981"/>
+  <path d="M25 18L29 22L25 26L21 22L25 18Z" fill="#0F172A"/>
+  <text x="45" y="32" font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="white">Wityliti</text>
+  <circle cx="135" cy="18" r="3" fill="#10B981"/>
+</svg>

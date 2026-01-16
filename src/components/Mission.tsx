@@ -1,0 +1,54 @@
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+
+export default function Mission() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+
+  return (
+    <section ref={containerRef} className="py-32 bg-foreground text-background relative overflow-hidden">
+      <div className="container px-4 relative z-10">
+        <motion.div 
+          style={{ scale, opacity }}
+          className="max-w-5xl mx-auto text-center"
+        >
+          <span className="text-emerald-400 font-medium tracking-wider uppercase mb-6 block">Our Philosophy</span>
+          
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-12">
+            "We don't just build websites.<br />
+            We build <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Digital Forests</span>."
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-left text-lg md:text-xl text-background/80 leading-relaxed">
+            <p>
+              In an era of digital waste, Wityliti stands for efficiency and purpose. 
+              We believe technology should serve the planet, not just consume its resources. 
+              Our "Gamifying Green" approach turns sustainability into an engaging, rewarding experience for users worldwide.
+            </p>
+            <p>
+              But a green future must be a secure one. As IoT devices proliferate in our forests and cities, 
+              we ensure every byte of data is protected. From Afforestation projects to Financial Tech, 
+              we provide the secure foundation for the next generation of the web.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Background Texture */}
+      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+          </pattern>
+          <rect width="100" height="100" fill="url(#grid)" />
+        </svg>
+      </div>
+    </section>
+  );
+}
