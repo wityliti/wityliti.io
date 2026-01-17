@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import ConvergingBackground from './ui/ConvergingBackground';
@@ -137,12 +138,12 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-5 justify-center items-center"
         >
-          <button className="group relative px-8 py-4 bg-foreground text-background rounded-full font-semibold text-lg overflow-hidden transition-all hover:scale-105 active:scale-95">
+          <Link to="/about" className="group relative px-8 py-4 bg-foreground text-background rounded-full font-semibold text-lg overflow-hidden transition-all hover:scale-105 active:scale-95 inline-block">
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <span className="relative flex items-center gap-2 group-hover:text-white transition-colors">
               Our Vision <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
-          </button>
+          </Link>
 
           <a href="#services" className="px-8 py-4 text-foreground rounded-full font-semibold text-lg border border-white/10 hover:border-white/20 hover:bg-white/5 hover:text-emerald-400 transition-colors">
             Explore Services
