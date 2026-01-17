@@ -35,7 +35,7 @@ export default function Contact() {
               <ContactItem
                 icon={<Phone className="w-6 h-6 text-indigo-400" />}
                 title="Phone"
-                value="+91 80 4123 5678"
+                value="+91 87687 77710"
               />
 
               <div className="p-6 bg-white/5 rounded-2xl border border-white/5 mt-8">
