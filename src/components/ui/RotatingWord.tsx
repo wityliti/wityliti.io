@@ -34,8 +34,8 @@ function AnimatedLetters({ word }: { word: string }) {
 
 const letterVariants = {
     initial: { opacity: 0, width: 0 },
-    animate: { opacity: 1, width: "auto", transition: { duration: 0.1 } },
-    exit: { opacity: 0, width: 0, transition: { duration: 0.1 } }
+    animate: { opacity: 1, width: "auto", transition: { duration: 0.05 } },
+    exit: { opacity: 0, width: 0, transition: { duration: 0.05 } }
 };
 
 export default function RotatingWord({ words, className, interval = 3000 }: Props) {
@@ -59,8 +59,9 @@ export default function RotatingWord({ words, className, interval = 3000 }: Prop
                     animate="animate"
                     exit="exit"
                     variants={{
-                        animate: { transition: { staggerChildren: 0.08 } },
-                        exit: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+                        initial: { opacity: 1 },
+                        animate: { opacity: 1, transition: { staggerChildren: 0.08 } },
+                        exit: { opacity: 1, transition: { staggerChildren: 0.05, staggerDirection: -1 } }
                     }}
                 >
                     {words[index].split('').map((letter, i) => (
