@@ -1,5 +1,5 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 type Props = {
     words: string[];
@@ -7,82 +7,53 @@ type Props = {
     interval?: number;
 };
 
-function AnimatedLetters({ word }: { word: string }) {
-    const letters = useMemo(() => word.split(''), [word]);
-
-    return (
-        <span className="inline-flex" aria-hidden>
-            {letters.map((ch, i) => (
-                <motion.span
-                    key={`${ch}-${i}-${word}`}
-                    initial={{ rotateX: 90, opacity: 0, y: 10 }}
-                    animate={{ rotateX: 0, opacity: 1, y: 0 }}
-                    exit={{ rotateX: -90, opacity: 0, y: -10 }}
-                    transition={{
-                        duration: 0.5,
-                        delay: i * 0.05,
-                        ease: [0.22, 1, 0.36, 1],
-                    }}
-                    style={{ transformOrigin: '50% 60%', display: 'inline-block' }}
-                >
-                    {ch === ' ' ? '\u00A0' : ch}
-                </motion.span>
-            ))}
-        </span>
-    );
-}
-
-const letterVariants = {
-    initial: { opacity: 0, width: 0 },
-    animate: { opacity: 1, width: "auto", transition: { duration: 0.05 } },
-    exit: { opacity: 0, width: 0, transition: { duration: 0.05 } }
-};
-
-export default function RotatingWord({ words, className, interval = 3000 }: Props) {
-    const [index, setIndex] = useState(0);
+export default function RotatingWord({ words, className, interval = 2000 }: Props) {
+    const [text, setText] = useState('');
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [wordIndex, setWordIndex] = useState(0);
+    const [delta, setDelta] = useState(150);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setIndex((prev) => (prev + 1) % words.length);
-        }, interval);
+        const ticker = setTimeout(() => {
+            tick();
+        }, delta);
 
-        return () => clearInterval(timer);
-    }, [interval, words.length]);
+        return () => clearTimeout(ticker);
+    }, [text, delta]);
+
+    const tick = () => {
+        const currentWord = words[wordIndex % words.length];
+        const updatedText = isDeleting
+            ? currentWord.substring(0, text.length - 1)
+            : currentWord.substring(0, text.length + 1);
+
+        setText(updatedText);
+
+        if (isDeleting) {
+            setDelta(50); // Faster deletion
+        } else {
+            setDelta(100); // Normal typing speed
+        }
+
+        if (!isDeleting && updatedText === currentWord) {
+            // Finished typing, wait before deleting
+            setDelta(interval);
+            setIsDeleting(true);
+        } else if (isDeleting && updatedText === '') {
+            // Finished deleting, start typing next word
+            setIsDeleting(false);
+            setWordIndex(wordIndex + 1);
+            setDelta(200);
+        }
+    };
 
     return (
-        <span className={`${className} inline-flex relative`}>
-            <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                    key={words[index]}
-                    className="inline-flex whitespace-nowrap overflow-hidden"
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    variants={{
-                        initial: { opacity: 1 },
-                        animate: { opacity: 1, transition: { staggerChildren: 0.08 } },
-                        exit: {
-                            opacity: 1,
-                            transition: {
-                                staggerChildren: 0.05,
-                                staggerDirection: -1,
-                                // Add a duration to force the container to stay mounted 
-                                duration: words[index].length * 0.05 + 0.1
-                            }
-                        }
-                    }}
-                >
-                    {words[index].split('').map((letter, i) => (
-                        <motion.span
-                            key={i}
-                            variants={letterVariants}
-                            style={{ display: 'inline-block' }}
-                        >
-                            {letter === ' ' ? '\u00A0' : letter}
-                        </motion.span>
-                    ))}
-                </motion.span>
-            </AnimatePresence>
+        <span className={`${className} inline-flex items-center`}>
+            <span>{text}</span>
+            <span className="animate-pulse ml-0.5 inline-block w-[2px] h-[1em] bg-emerald-400 opacity-70" />
+
+            {/* Invisble placeholder to prevent layout shift if needed, checking height */}
+            {text === '' && <span className="opacity-0 w-0 inline-block">&nbsp;</span>}
         </span>
     );
 }
