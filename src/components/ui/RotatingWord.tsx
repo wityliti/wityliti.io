@@ -44,19 +44,24 @@ export default function RotatingWord({ words, className, interval = 3000 }: Prop
     }, [interval, words.length]);
 
     return (
-        <span className={`${className} inline-grid grid-cols-1 items-center justify-items-center`}>
-            <AnimatePresence mode="wait" initial={false}>
+        <span className={`${className} inline-flex relative`}>
+            <AnimatePresence mode="popLayout" initial={false}>
                 <motion.span
-                    key={index}
-                    className="col-start-1 row-start-1"
+                    key={index} // Use index as key to differentiate
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{
+                        duration: 0.5,
+                        ease: [0.22, 1, 0.36, 1],
+                        opacity: { duration: 0.2 }
+                    }}
+                    layout
+                    className="whitespace-nowrap"
                 >
-                    <AnimatedLetters word={words[index]} />
+                    {words[index]}
                 </motion.span>
             </AnimatePresence>
-            {/* Invisible duplicate to maintain width/height stability if needed, though grid centering helps */}
-            <span className="col-start-1 row-start-1 opacity-0 pointer-events-none select-none" aria-hidden="true">
-                {words.sort((a, b) => b.length - a.length)[0]}
-            </span>
         </span>
     );
 }
