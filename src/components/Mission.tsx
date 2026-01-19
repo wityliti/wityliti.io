@@ -28,7 +28,7 @@ export default function Mission() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-left text-lg md:text-xl text-background/80 leading-relaxed mb-16">
             <p>
               <span className="text-emerald-400 font-bold block mb-2">Builders</span>
-              We pioneer sustainability software, climate tech, and deeptech innovations to actively reverse climate change.
+              We pioneer sustainability software, climate tech, and deeptech innovations to actively reverse climate change, drive business sustainability, and accelerate the circular economy.
               We believe true innovation isn't just about speed—it's about survival.
             </p>
             <p>
