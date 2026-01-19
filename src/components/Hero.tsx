@@ -126,10 +126,14 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 font-light leading-relaxed"
+          className="text-lg md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-12 font-light leading-relaxed"
         >
-          We are <span className="text-foreground font-medium">Wityliti</span>. A Climate Tech First agency engineering the future.
-          We fuse <span className="text-emerald-400">Environmental Intelligence</span> with military-grade <span className="text-cyan-400">Cyber Security</span> to build resilient digital ecosystems.
+          We are <span className="text-foreground font-medium">Wityliti</span>.
+          <span className="block mt-4">
+            <span className="text-emerald-400 font-medium">Builders:</span> We engineer deeptech climate solutions—from proprietary products to partner platforms.
+            <span className="mx-2"></span>
+            <span className="text-cyan-400 font-medium">Defenders:</span> We protect enterprises with military-grade cybersecurity and uncompromising digital resilience.
+          </span>
         </motion.p>
 
         <motion.div
