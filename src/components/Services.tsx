@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Cpu, Globe, Leaf, Shield, Smartphone, Zap } from 'lucide-react';
+import { Cpu, Leaf, Shield, Cloud, FileText, Activity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const services = [
@@ -34,6 +34,36 @@ const services = [
     link: "/iot-solutions",
     category: "Builders",
     categoryColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+  },
+  {
+    title: "ESG & Compliance",
+    description: "Automated frameworks for sustainability reporting and seamless alignment with global regulatory standards.",
+    icon: <FileText className="w-8 h-8" />,
+    color: "text-emerald-400",
+    gradient: "from-emerald-400/20 to-emerald-900/0",
+    link: "/eco-digital-platforms", // Fallback link
+    category: "Builders",
+    categoryColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+  },
+  {
+    title: "Cloud Security",
+    description: "Security-first engineering for hybrid-cloud environments and critical digital infrastructure protection.",
+    icon: <Cloud className="w-8 h-8" />,
+    color: "text-cyan-400",
+    gradient: "from-cyan-400/20 to-cyan-900/0",
+    link: "/cyber-security", // Fallback link
+    category: "Defenders",
+    categoryColor: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30"
+  },
+  {
+    title: "Resilience Operations",
+    description: "Proactive threat hunting, strategic incident response, and 24/7 defense for the most demanding environments.",
+    icon: <Activity className="w-8 h-8" />,
+    color: "text-cyan-400",
+    gradient: "from-cyan-400/20 to-cyan-900/0",
+    link: "/cyber-security", // Fallback link
+    category: "Defenders",
+    categoryColor: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30"
   }
 ];
 
