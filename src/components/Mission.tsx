@@ -1,6 +1,8 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
+import RotatingWord from './ui/RotatingWord';
+
 export default function Mission() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -22,7 +24,10 @@ export default function Mission() {
 
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-12">
             "We don't just write code.<br />
-            We engineer <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Resilience</span>."
+            We engineer <RotatingWord
+              words={['Resilience', 'Sustainability', 'Security', 'Continuity', 'The Future']}
+              className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 inline-block align-bottom"
+            />."
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-left text-lg md:text-xl text-background/80 leading-relaxed mb-16">
