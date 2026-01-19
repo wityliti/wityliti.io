@@ -25,16 +25,24 @@ export default function Mission() {
             We engineer <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Resilience</span>."
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-left text-lg md:text-xl text-background/80 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-left text-lg md:text-xl text-background/80 leading-relaxed mb-16">
             <p>
-              In a world of digital fragility and climate crisis, Wityliti builds systems that last.
+              <span className="text-emerald-400 font-bold block mb-2">Builders</span>
+              We pioneer sustainability software, climate tech, and deeptech innovations to actively reverse climate change.
               We believe true innovation isn't just about speed—it's about survival.
             </p>
             <p>
-              Whether we are pioneering sustainability software, climate tech, and deeptech innovations to actively reverse climate change or
-              fortifying complex enterprise networks with military-grade defense,
-              our philosophy is the same: Build it smart.<br />Secure it forever.
+              <span className="text-cyan-400 font-bold block mb-2">Defenders</span>
+              We fortify complex enterprise networks with military-grade defense.
+              In a world of digital fragility, we ensure every byte of data is protected.
             </p>
+          </div>
+
+          <div className="text-center">
+            <h3 className="text-3xl md:text-5xl font-display font-bold leading-tight">
+              Build it smart.<br />
+              Secure it forever.
+            </h3>
           </div>
         </motion.div>
       </div>
