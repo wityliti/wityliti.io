@@ -47,7 +47,7 @@ export default function Services() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
-    <section id="services" ref={containerRef} className="py-32 relative overflow-hidden bg-background">
+    <section id="services" ref={containerRef} className="py-32 relative overflow-hidden bg-foreground text-background">
       <div className="container px-4">
         {/* Section Header */}
         <div className="mb-24 md:mb-32">
@@ -55,10 +55,10 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-7xl font-display font-bold mb-6"
+            className="text-4xl md:text-7xl font-display font-bold mb-6 text-white"
           >
             Engineering the <br />
-            <span className="text-muted-foreground">Anthropocene.</span>
+            <span className="text-white/40">Anthropocene.</span>
           </motion.h2>
           <motion.div
             initial={{ width: 0 }}
@@ -105,12 +105,12 @@ function ServiceCard({ service, index }: { service: any, index: number }) {
           </span>
         </div>
 
-        <h3 className="text-2xl font-bold mb-4 font-display group-hover:text-white transition-colors">{service.title}</h3>
-        <p className="text-muted-foreground leading-relaxed flex-grow group-hover:text-white/80 transition-colors">
+        <h3 className="text-2xl font-bold mb-4 font-display text-white transition-colors">{service.title}</h3>
+        <p className="text-slate-300 leading-relaxed flex-grow group-hover:text-white transition-colors">
           {service.description}
         </p>
 
-        <div className={cn("mt-8 pt-8 border-t border-white/5 flex items-center gap-2 text-sm font-medium opacity-50 group-hover:opacity-100 transition-opacity", service.color)}>
+        <div className={cn("mt-8 pt-8 border-t border-white/10 flex items-center gap-2 text-sm font-medium opacity-70 group-hover:opacity-100 transition-opacity", service.color)}>
           Learn More <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
         </div>
       </div>
