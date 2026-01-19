@@ -61,7 +61,15 @@ export default function RotatingWord({ words, className, interval = 3000 }: Prop
                     variants={{
                         initial: { opacity: 1 },
                         animate: { opacity: 1, transition: { staggerChildren: 0.08 } },
-                        exit: { opacity: 1, transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+                        exit: {
+                            opacity: 1,
+                            transition: {
+                                staggerChildren: 0.05,
+                                staggerDirection: -1,
+                                // Add a duration to force the container to stay mounted 
+                                duration: words[index].length * 0.05 + 0.1
+                            }
+                        }
                     }}
                 >
                     {words[index].split('').map((letter, i) => (
