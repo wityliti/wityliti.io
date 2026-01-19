@@ -12,9 +12,12 @@ const navItems = [
     name: 'Services',
     path: '#',
     children: [
-      { name: 'Cyber Security', path: '/cyber-security' },
-      { name: 'Eco-Digital Platforms', path: '/eco-digital-platforms' },
-      { name: 'IoT Solutions', path: '/iot-solutions' }
+      { name: 'Sustainability Software', path: '/sustainability-software' },
+      { name: 'IoT & Sensor Networks', path: '/iot-solutions' },
+      { name: 'ESG & Compliance', path: '/esg-compliance' },
+      { name: 'Enterprise Security', path: '/cyber-security' },
+      { name: 'Cloud Security', path: '/cloud-security' },
+      { name: 'Resilience Operations', path: '/resilience-ops' }
     ]
   },
   { name: 'Case Studies', path: '/case-studies' },

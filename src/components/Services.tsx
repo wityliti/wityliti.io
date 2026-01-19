@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Cpu, Leaf, Shield, Cloud, FileText, Activity } from 'lucide-react';
+import { Cpu, Globe, Leaf, Shield, Cloud, FileText, Activity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const services = [
@@ -11,7 +11,7 @@ const services = [
     icon: <Leaf className="w-8 h-8" />,
     color: "text-emerald-400",
     gradient: "from-emerald-400/20 to-emerald-900/0",
-    link: "/eco-digital-platforms",
+    link: "/sustainability-software",
     category: "Builders",
     categoryColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
   },
@@ -26,9 +26,9 @@ const services = [
     categoryColor: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30"
   },
   {
-    title: "Climate Intelligence",
-    description: "Real-time environmental monitoring at scale. From soil sensors to satellite integration, we turn planetary data into actionable insights.",
-    icon: <Cpu className="w-8 h-8" />,
+    title: "IoT & Sensor Networks",
+    description: "Real-time environmental monitoring via precision sensor arrays. We build the physical-to-digital bridge for planetary-scale data intelligence.",
+    icon: <Globe className="w-8 h-8" />,
     color: "text-indigo-400",
     gradient: "from-indigo-400/20 to-indigo-900/0",
     link: "/iot-solutions",
@@ -41,7 +41,7 @@ const services = [
     icon: <FileText className="w-8 h-8" />,
     color: "text-emerald-400",
     gradient: "from-emerald-400/20 to-emerald-900/0",
-    link: "/eco-digital-platforms", // Fallback link
+    link: "/esg-compliance",
     category: "Builders",
     categoryColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
   },
@@ -51,7 +51,7 @@ const services = [
     icon: <Cloud className="w-8 h-8" />,
     color: "text-cyan-400",
     gradient: "from-cyan-400/20 to-cyan-900/0",
-    link: "/cyber-security", // Fallback link
+    link: "/cloud-security",
     category: "Defenders",
     categoryColor: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30"
   },
@@ -61,7 +61,7 @@ const services = [
     icon: <Activity className="w-8 h-8" />,
     color: "text-cyan-400",
     gradient: "from-cyan-400/20 to-cyan-900/0",
-    link: "/cyber-security", // Fallback link
+    link: "/resilience-ops",
     category: "Defenders",
     categoryColor: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30"
   }

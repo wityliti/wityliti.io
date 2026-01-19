@@ -7,6 +7,10 @@ import Products from "@/pages/Products";
 import CyberSecurity from "@/pages/CyberSecurity";
 import EcoDigitalPlatforms from "@/pages/EcoDigitalPlatforms";
 import IoTSolutions from "@/pages/IoTSolutions";
+import SustainabilitySoftware from "@/pages/SustainabilitySoftware";
+import ESGCompliance from "@/pages/ESGCompliance";
+import CloudSecurity from "@/pages/CloudSecurity";
+import ResilienceOps from "@/pages/ResilienceOps";
 import Contact from "@/pages/Contact";
 import AfforestationProduct from "@/pages/products/Afforestation";
 import CykloProduct from "@/pages/products/Cyklo";
@@ -38,6 +42,10 @@ export default function App() {
         <Route path="/products/cyklo" element={<CykloProduct />} />
         <Route path="/cyber-security" element={<CyberSecurity />} />
         <Route path="/eco-digital-platforms" element={<EcoDigitalPlatforms />} />
+        <Route path="/sustainability-software" element={<SustainabilitySoftware />} />
+        <Route path="/esg-compliance" element={<ESGCompliance />} />
+        <Route path="/cloud-security" element={<CloudSecurity />} />
+        <Route path="/resilience-ops" element={<ResilienceOps />} />
         <Route path="/iot-solutions" element={<IoTSolutions />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
