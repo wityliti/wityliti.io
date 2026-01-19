@@ -32,6 +32,12 @@ function AnimatedLetters({ word }: { word: string }) {
     );
 }
 
+const letterVariants = {
+    initial: { opacity: 0, width: 0 },
+    animate: { opacity: 1, width: "auto", transition: { duration: 0.1 } },
+    exit: { opacity: 0, width: 0, transition: { duration: 0.1 } }
+};
+
 export default function RotatingWord({ words, className, interval = 3000 }: Props) {
     const [index, setIndex] = useState(0);
 
@@ -45,21 +51,27 @@ export default function RotatingWord({ words, className, interval = 3000 }: Prop
 
     return (
         <span className={`${className} inline-flex relative`}>
-            <AnimatePresence mode="popLayout" initial={false}>
+            <AnimatePresence mode="wait" initial={false}>
                 <motion.span
-                    key={index} // Use index as key to differentiate
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{
-                        duration: 0.5,
-                        ease: [0.22, 1, 0.36, 1],
-                        opacity: { duration: 0.2 }
+                    key={words[index]}
+                    className="inline-flex whitespace-nowrap overflow-hidden"
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    variants={{
+                        animate: { transition: { staggerChildren: 0.08 } },
+                        exit: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
                     }}
-                    layout
-                    className="whitespace-nowrap"
                 >
-                    {words[index]}
+                    {words[index].split('').map((letter, i) => (
+                        <motion.span
+                            key={i}
+                            variants={letterVariants}
+                            style={{ display: 'inline-block' }}
+                        >
+                            {letter === ' ' ? '\u00A0' : letter}
+                        </motion.span>
+                    ))}
                 </motion.span>
             </AnimatePresence>
         </span>
