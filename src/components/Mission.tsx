@@ -33,7 +33,7 @@ export default function Mission() {
             <p>
               Whether we are pioneering deeptech innovations to actively reverse climate change or
               fortifying complex enterprise networks with military-grade defense,
-              our philosophy is the same: Build it smart. Secure it forever.
+              our philosophy is the same: Build it smart.<br />Secure it forever.
             </p>
           </div>
         </motion.div>
