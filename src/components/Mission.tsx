@@ -39,7 +39,7 @@ export default function Mission() {
           </div>
 
           <div className="text-center">
-            <h3 className="text-3xl md:text-5xl font-display font-bold leading-tight">
+            <h3 className="text-2xl md:text-4xl font-display font-bold leading-tight">
               Build it smart.<br />
               Secure it forever.
             </h3>
