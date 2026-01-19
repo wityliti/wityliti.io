@@ -6,28 +6,34 @@ import { cn } from '@/lib/utils';
 
 const services = [
   {
-    title: "Eco-Digital Platforms",
-    description: "We gamify green. Building immersive web and mobile experiences that incentivize sustainable behavior and track environmental impact.",
+    title: "Sustainability Software",
+    description: "We build platforms that measure, manage, and optimize environmental impact—from carbon accounting to ESG compliance tools.",
     icon: <Leaf className="w-8 h-8" />,
     color: "text-emerald-400",
     gradient: "from-emerald-400/20 to-emerald-900/0",
-    link: "/eco-digital-platforms"
+    link: "/eco-digital-platforms",
+    category: "Builders",
+    categoryColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
   },
   {
-    title: "Cyber Resilience",
-    description: "Security isn't an afterthought. We implement military-grade encryption and zero-trust architectures to protect your data assets.",
+    title: "Enterprise Security",
+    description: "Military-grade protection for critical infrastructure. Zero-trust architectures, threat intelligence, and 24/7 SOC operations.",
     icon: <Shield className="w-8 h-8" />,
     color: "text-cyan-400",
     gradient: "from-cyan-400/20 to-cyan-900/0",
-    link: "/cyber-security"
+    link: "/cyber-security",
+    category: "Defenders",
+    categoryColor: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30"
   },
   {
-    title: "IoT & Data Intelligence",
-    description: "Connecting the physical world to the digital. From soil sensors to air quality monitors, we visualize complex environmental data.",
+    title: "Climate Intelligence",
+    description: "Real-time environmental monitoring at scale. From soil sensors to satellite integration, we turn planetary data into actionable insights.",
     icon: <Cpu className="w-8 h-8" />,
     color: "text-indigo-400",
     gradient: "from-indigo-400/20 to-indigo-900/0",
-    link: "/iot-solutions"
+    link: "/iot-solutions",
+    category: "Builders",
+    categoryColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
   }
 ];
 
@@ -80,7 +86,7 @@ function ServiceCard({ service, index }: { service: any, index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.2, duration: 0.8 }}
-      className="group relative p-8 rounded-3xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors overflow-hidden h-full flex flex-col"
+      className="group relative p-8 rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.08] hover:border-white/20 transition-all duration-500 overflow-hidden h-full flex flex-col shadow-lg hover:shadow-2xl"
     >
       <Link to={service.link} className="absolute inset-0 z-20">
         <span className="sr-only">Learn more about {service.title}</span>
@@ -89,17 +95,23 @@ function ServiceCard({ service, index }: { service: any, index: number }) {
       <div className={cn("absolute inset-0 bg-gradient-to-b opacity-0 group-hover:opacity-100 transition-opacity duration-500", service.gradient)} />
 
       <div className="relative z-10 flex flex-col h-full pointer-events-none">
-        <div className={cn("mb-6 p-4 rounded-2xl bg-white/5 w-fit", service.color)}>
-          {service.icon}
+        {/* Category Badge */}
+        <div className="flex items-center justify-between mb-6">
+          <div className={cn("mb-0 p-4 rounded-2xl bg-white/5 w-fit", service.color)}>
+            {service.icon}
+          </div>
+          <span className={cn("text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border", service.categoryColor)}>
+            {service.category}
+          </span>
         </div>
 
-        <h3 className="text-2xl font-bold mb-4 font-display">{service.title}</h3>
-        <p className="text-muted-foreground leading-relaxed flex-grow">
+        <h3 className="text-2xl font-bold mb-4 font-display group-hover:text-white transition-colors">{service.title}</h3>
+        <p className="text-muted-foreground leading-relaxed flex-grow group-hover:text-white/80 transition-colors">
           {service.description}
         </p>
 
-        <div className="mt-8 pt-8 border-t border-white/5 flex items-center gap-2 text-sm font-medium opacity-50 group-hover:opacity-100 transition-opacity text-emerald-400">
-          Learn More <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        <div className={cn("mt-8 pt-8 border-t border-white/5 flex items-center gap-2 text-sm font-medium opacity-50 group-hover:opacity-100 transition-opacity", service.color)}>
+          Learn More <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
         </div>
       </div>
     </motion.div>
