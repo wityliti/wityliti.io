@@ -34,7 +34,8 @@ export default function Mission() {
             <p>
               <span className="text-cyan-400 font-bold block mb-2">Defenders</span>
               We fortify complex enterprise networks with military-grade defense.
-              In a world of digital fragility, we ensure every byte of data is protected.
+              By integrating proactive threat intelligence and zero-trust security frameworks, we guarantee business continuity in an unpredictable digital landscape.
+              In a world of digital fragility, we ensure every byte of data remains uncompromised.
             </p>
           </div>
 
