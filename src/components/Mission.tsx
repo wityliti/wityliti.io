@@ -31,7 +31,7 @@ export default function Mission() {
               We believe true innovation isn't just about speed—it's about survival.
             </p>
             <p>
-              Whether we are pioneering deeptech innovations to actively reverse climate change or
+              Whether we are pioneering sustainability software, climate tech, and deeptech innovations to actively reverse climate change or
               fortifying complex enterprise networks with military-grade defense,
               our philosophy is the same: Build it smart.<br />Secure it forever.
             </p>
