@@ -130,8 +130,8 @@ export default function Hero() {
         >
           We are <span className="text-foreground font-medium">Wityliti</span>.
           <span className="block mt-4">
-            <span className="text-emerald-400 font-medium">Builders:</span> We engineer deeptech climate solutions—from proprietary products to partner platforms.
-            <span className="mx-2"></span>
+            <span className="text-emerald-400 font-medium">Builders:</span> We engineer deeptech climate solutions-from proprietary products to partner platforms.
+            <span className="mx-1"></span>
             <span className="text-cyan-400 font-medium">Defenders:</span> We protect enterprises with military-grade cybersecurity and uncompromising digital resilience.
           </span>
         </motion.p>
