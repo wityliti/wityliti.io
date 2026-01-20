@@ -14,7 +14,7 @@ import ResilienceOps from "@/pages/ResilienceOps";
 import Contact from "@/pages/Contact";
 import AfforestationProduct from "@/pages/products/Afforestation";
 import CykloProduct from "@/pages/products/Cyklo";
-import MyceliaProduct from "@/pages/products/Mycelia";
+import WityLogixProduct from "@/pages/products/WityLogix";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import Blog from "@/pages/Blog";
@@ -41,7 +41,7 @@ export default function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/afforestation" element={<AfforestationProduct />} />
         <Route path="/products/cyklo" element={<CykloProduct />} />
-        <Route path="/products/mycelia" element={<MyceliaProduct />} />
+        <Route path="/products/witylogix" element={<WityLogixProduct />} />
         <Route path="/cyber-security" element={<CyberSecurity />} />
         <Route path="/eco-digital-platforms" element={<EcoDigitalPlatforms />} />
         <Route path="/sustainability-software" element={<SustainabilitySoftware />} />
