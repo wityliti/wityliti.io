@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import Home from "@/pages/Home";
 import CaseStudies from "@/pages/CaseStudies";
@@ -38,7 +38,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/afforestation" element={<AfforestationProduct />} />
-        <Route path="/products/cyklo" element={<CykloProduct />} />
+        <Route path="/products/cyklo" element={<Navigate to="/" replace />} />
         <Route path="/products/witylogix" element={<WityLogixProduct />} />
         <Route path="/cyber-security" element={<CyberSecurity />} />
         <Route path="/eco-digital-platforms" element={<EcoDigitalPlatforms />} />
