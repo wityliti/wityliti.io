@@ -32,7 +32,7 @@ export default function WityLogixProduct() {
         <div className="min-h-screen bg-background text-foreground selection:bg-cyan-500/30">
             <Header />
 
-            <main className="pt-24 md:pt-32 pb-24 space-y-24 md:space-y-32">
+            <main className="pt-24 md:pt-32 pb-24 space-y-20 md:space-y-32">
                 {/* 1. Hero Section: Focused & Clean */}
                 <section className="px-4 relative overflow-hidden">
                     <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
@@ -127,22 +127,22 @@ export default function WityLogixProduct() {
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     viewport={{ once: true }}
-                                    className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-md relative z-10"
+                                    className="p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-md relative z-10"
                                 >
-                                    <BarChart3 className="w-12 h-12 text-cyan-400 mb-6" />
-                                    <div className="text-6xl font-bold mb-2 font-display uppercase">30%</div>
-                                    <p className="text-xs text-slate-400 uppercase tracking-widest font-black opacity-60">Cost Saved</p>
+                                    <BarChart3 className="w-8 h-8 md:w-12 md:h-12 text-cyan-400 mb-4 md:mb-6" />
+                                    <div className="text-5xl md:text-6xl font-bold mb-2 font-display uppercase">30%</div>
+                                    <p className="text-[10px] text-slate-400 uppercase tracking-widest font-black opacity-60">Cost Saved</p>
                                 </motion.div>
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.2 }}
-                                    className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-md relative z-10 md:translate-y-12"
+                                    className="p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-md relative z-10 md:translate-y-12"
                                 >
-                                    <Activity className="w-12 h-12 text-emerald-400 mb-6" />
-                                    <div className="text-6xl font-bold mb-2 font-display uppercase">99%</div>
-                                    <p className="text-xs text-slate-400 uppercase tracking-widest font-black opacity-60">Efficiency</p>
+                                    <Activity className="w-8 h-8 md:w-12 md:h-12 text-emerald-400 mb-4 md:mb-6" />
+                                    <div className="text-5xl md:text-6xl font-bold mb-2 font-display uppercase">99%</div>
+                                    <p className="text-[10px] text-slate-400 uppercase tracking-widest font-black opacity-60">Efficiency</p>
                                 </motion.div>
                             </div>
                         </div>
@@ -152,31 +152,31 @@ export default function WityLogixProduct() {
                 {/* 3. Core Engine: Intelligence Section */}
                 <section className="px-4">
                     <div className="container mx-auto max-w-6xl">
-                        <div className="text-center mb-24">
+                        <div className="text-center mb-16 md:mb-24">
                             <span className="text-cyan-600 font-black tracking-[0.3em] uppercase text-xs mb-4 block">The Core Logic</span>
-                            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase mb-6 tracking-tight">Technical Sophistication</h2>
-                            <p className="text-slate-500 text-xl max-w-3xl mx-auto leading-relaxed">
+                            <h2 className="text-3xl md:text-6xl font-display font-bold uppercase mb-6 tracking-tight">Technical Sophistication</h2>
+                            <p className="text-slate-500 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
                                 Our proprietary MDVRP solver and swarm intelligence algorithms power every delivery decision with zero manual intervention.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-12">
+                        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="group space-y-8 p-12 rounded-[3rem] bg-slate-50 border border-slate-100 transition-all hover:bg-white hover:shadow-2xl hover:shadow-cyan-500/10 cursor-default"
+                                className="group space-y-6 md:space-y-8 p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] bg-slate-50 border border-slate-100 transition-all hover:bg-white hover:shadow-2xl hover:shadow-cyan-500/10 cursor-default"
                             >
-                                <div className="p-5 bg-cyan-100 rounded-3xl w-fit text-cyan-600 group-hover:scale-110 transition-transform">
-                                    <Zap className="w-10 h-10" />
+                                <div className="p-4 md:p-5 bg-cyan-100 rounded-2xl md:rounded-3xl w-fit text-cyan-600 group-hover:scale-110 transition-transform">
+                                    <Zap className="w-8 h-8 md:w-10 md:h-10" />
                                 </div>
-                                <h3 className="text-3xl font-display font-bold uppercase tracking-tight">Neural Route Planning</h3>
-                                <p className="text-slate-600 leading-relaxed text-lg pb-6 border-b border-slate-200">
+                                <h3 className="text-2xl md:text-3xl font-display font-bold uppercase tracking-tight">Neural Route Planning</h3>
+                                <p className="text-slate-600 leading-relaxed text-base md:text-lg pb-6 border-b border-slate-200">
                                     An advanced solver that processes thousands of variables in milliseconds—traffic, capacity, windows, and driver performance—to find the mathematically perfect path.
                                 </p>
                                 <div className="flex items-center gap-4 pt-2">
                                     <div className="w-2 h-2 rounded-full bg-cyan-500" />
-                                    <span className="text-xs font-bold uppercase text-slate-400 tracking-widest">Active Solver: v2.4-MDVRP</span>
+                                    <span className="text-[10px] font-bold uppercase text-slate-400 tracking-widest">Active Solver: v2.4-MDVRP</span>
                                 </div>
                             </motion.div>
 
@@ -185,18 +185,18 @@ export default function WityLogixProduct() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.1 }}
-                                className="group space-y-8 p-12 rounded-[3rem] bg-slate-50 border border-slate-100 transition-all hover:bg-white hover:shadow-2xl hover:shadow-indigo-500/10 cursor-default"
+                                className="group space-y-6 md:space-y-8 p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] bg-slate-50 border border-slate-100 transition-all hover:bg-white hover:shadow-2xl hover:shadow-indigo-500/10 cursor-default"
                             >
-                                <div className="p-5 bg-indigo-100 rounded-3xl w-fit text-indigo-600 group-hover:scale-110 transition-transform">
-                                    <Activity className="w-10 h-10" />
+                                <div className="p-4 md:p-5 bg-indigo-100 rounded-2xl md:rounded-3xl w-fit text-indigo-600 group-hover:scale-110 transition-transform">
+                                    <Activity className="w-8 h-8 md:w-10 md:h-10" />
                                 </div>
-                                <h3 className="text-3xl font-display font-bold uppercase tracking-tight">Swarm Intelligence</h3>
-                                <p className="text-slate-600 leading-relaxed text-lg pb-6 border-b border-slate-200">
+                                <h3 className="text-2xl md:text-3xl font-display font-bold uppercase tracking-tight">Swarm Intelligence</h3>
+                                <p className="text-slate-600 leading-relaxed text-base md:text-lg pb-6 border-b border-slate-200">
                                     Collective fleet logic that self-corrects in real-time. If one driver is delayed, the entire "hive" recalibrates to ensure fulfillment SLAs are never breached.
                                 </p>
                                 <div className="flex items-center gap-4 pt-2">
                                     <div className="w-2 h-2 rounded-full bg-indigo-500" />
-                                    <span className="text-xs font-bold uppercase text-slate-400 tracking-widest">Logic Type: Hive Calibration</span>
+                                    <span className="text-[10px] font-bold uppercase text-slate-400 tracking-widest">Logic Type: Hive Calibration</span>
                                 </div>
                             </motion.div>
                         </div>
@@ -204,7 +204,7 @@ export default function WityLogixProduct() {
                 </section>
 
                 {/* 4. Connectivity Section: Ecosystem Sync */}
-                <section className="bg-slate-50 py-32 border-y border-slate-200 relative">
+                <section className="bg-slate-50 py-20 md:py-32 border-y border-slate-200 relative">
                     <div className="absolute inset-0 opacity-5 pointer-events-none grayscale">
                         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                             <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
@@ -215,40 +215,35 @@ export default function WityLogixProduct() {
                     </div>
 
                     <div className="container mx-auto px-4 max-w-6xl relative z-10">
-                        <div className="grid lg:grid-cols-2 gap-24 items-center">
+                        <div className="grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
                             <div className="order-2 lg:order-1">
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     whileInView={{ opacity: 1 }}
                                     viewport={{ once: true }}
-                                    className="grid grid-cols-2 md:grid-cols-3 gap-4"
+                                    className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4"
                                 >
                                     {platforms.map((platform) => (
-                                        <div key={platform.name} className="p-8 bg-white rounded-[2rem] border border-slate-100 shadow-sm flex flex-col items-center text-center group hover:border-cyan-500/30 transition-all hover:shadow-xl hover:shadow-cyan-500/5">
-                                            <div className="text-slate-400 group-hover:text-cyan-500 group-hover:scale-110 transition-all mb-6">{platform.icon}</div>
-                                            <span className="font-bold text-slate-900 text-sm tracking-tight">{platform.name}</span>
+                                        <div key={platform.name} className="p-6 md:p-8 bg-white rounded-[1.5rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col items-center text-center group hover:border-cyan-500/30 transition-all hover:shadow-xl hover:shadow-cyan-500/5">
+                                            <div className="text-slate-400 group-hover:text-cyan-500 group-hover:scale-110 transition-all mb-4 md:mb-6">{platform.icon}</div>
+                                            <span className="font-bold text-slate-900 text-xs md:text-sm tracking-tight">{platform.name}</span>
                                         </div>
                                     ))}
-                                    <div className="p-8 bg-slate-900 rounded-[2rem] border border-slate-800 flex flex-col items-center justify-center text-center">
-                                        <Database className="w-6 h-6 text-cyan-400 mb-4" />
-                                        <span className="text-xs font-black text-white uppercase tracking-widest">API Native</span>
+                                    <div className="p-6 md:p-8 bg-slate-900 rounded-[1.5rem] md:rounded-[2.5rem] border border-slate-800 flex flex-col items-center justify-center text-center">
+                                        <Database className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 mb-2 md:mb-4" />
+                                        <span className="text-[10px] font-black text-white uppercase tracking-widest">API Native</span>
                                     </div>
                                 </motion.div>
                             </div>
 
-                            <div className="order-1 lg:order-2 space-y-8">
-                                <span className="text-indigo-600 font-black tracking-[0.3em] uppercase text-xs">Ecosystem Integration</span>
-                                <h2 className="text-4xl md:text-6xl font-display font-bold uppercase leading-[0.9] tracking-tighter">
+                            <div className="order-1 lg:order-2 space-y-6 md:space-y-8">
+                                <span className="text-indigo-600 font-black tracking-[0.3em] uppercase text-[10px]">Ecosystem Integration</span>
+                                <h2 className="text-3xl md:text-6xl font-display font-bold uppercase leading-[0.9] tracking-tighter">
                                     Universal <br /><span className="text-indigo-500 italic">Platform Mesh.</span>
                                 </h2>
-                                <p className="text-slate-600 text-xl leading-relaxed">
+                                <p className="text-slate-600 text-lg md:text-xl leading-relaxed">
                                     WityLogix connects natively to your entire stack via a robust webhook infrastructure, enabling one-click dispatch from any data source—Shopify to legacy ERPs.
                                 </p>
-                                <div className="flex items-center gap-6 pt-6">
-                                    <div className="px-6 py-2 bg-slate-200/50 rounded-full text-xs font-bold uppercase tracking-widest text-slate-500 border border-slate-300">
-                                        Zero-Deployment Sync
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
