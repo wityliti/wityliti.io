@@ -283,17 +283,17 @@ export default function WityLogixProduct() {
                 </section>
 
                 {/* 6. CTA & Inquiry Form: High Focus */}
-                <section className="px-4 py-32">
+                <section className="px-4 py-20 md:py-32">
                     <div className="container mx-auto max-w-6xl">
-                        <div className="bg-slate-900 rounded-[4rem] p-12 md:p-24 text-center relative overflow-hidden group border border-white/5 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)]">
+                        <div className="bg-slate-900 rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-24 text-center relative overflow-hidden group border border-white/5 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)]">
                             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-indigo-500/10 opacity-30 group-hover:opacity-100 transition-opacity duration-1000" />
 
-                            <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center space-y-12">
-                                <div className="space-y-6">
-                                    <h2 className="text-5xl md:text-8xl font-display font-bold text-white uppercase leading-[0.85] tracking-tighter">
+                            <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center space-y-8 md:space-y-12">
+                                <div className="space-y-4 md:space-y-6">
+                                    <h2 className="text-4xl md:text-8xl font-display font-bold text-white uppercase leading-[0.85] tracking-tighter">
                                         Build Your <br /> <span className="text-cyan-400 italic">Alpha.</span>
                                     </h2>
-                                    <p className="text-slate-400 text-xl md:text-2xl max-w-xl mx-auto leading-relaxed font-headline">
+                                    <p className="text-slate-400 text-lg md:text-2xl max-w-xl mx-auto leading-relaxed font-headline">
                                         Join the high-scale merchants defining the next era of logistics.
                                     </p>
                                 </div>
@@ -316,7 +316,7 @@ export default function WityLogixProduct() {
                                                 />
                                                 <button
                                                     type="submit"
-                                                    className="px-6 py-3 bg-cyan-500 text-slate-900 rounded-xl font-bold text-sm hover:bg-white transition-all flex items-center gap-2 group/btn active:scale-95"
+                                                    className="px-4 md:px-6 py-3 bg-cyan-500 text-slate-900 rounded-xl font-bold text-sm hover:bg-white transition-all flex items-center gap-2 group/btn active:scale-95 shrink-0"
                                                 >
                                                     Enquire <Send className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                                                 </button>
