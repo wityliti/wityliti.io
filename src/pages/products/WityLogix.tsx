@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import RotatingWord from '@/components/ui/RotatingWord';
+import NetworkAnimation from '@/components/ui/NetworkAnimation';
 
 const platforms = [
     { name: 'Shopify', desc: 'Native App integration', icon: <ShoppingCart className="w-5 h-5" /> },
@@ -31,35 +32,35 @@ export default function WityLogixProduct() {
         <div className="min-h-screen bg-background text-foreground selection:bg-cyan-500/30">
             <Header />
 
-            <main className="pt-32 pb-24 space-y-32">
+            <main className="pt-24 md:pt-32 pb-24 space-y-24 md:space-y-32">
                 {/* 1. Hero Section: Focused & Clean */}
-                <section className="px-4 relative">
+                <section className="px-4 relative overflow-hidden">
                     <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
                     <div className="container mx-auto max-w-6xl relative z-10">
-                        <Link to="/products" className="inline-flex items-center gap-2 text-slate-500 hover:text-cyan-600 mb-12 transition-colors group">
+                        <Link to="/products" className="inline-flex items-center gap-2 text-slate-500 hover:text-cyan-600 mb-8 md:mb-12 transition-colors group">
                             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Products
                         </Link>
 
-                        <div className="max-w-4xl">
+                        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="space-y-8"
+                                className="space-y-6 md:space-y-8"
                             >
                                 <div className="flex items-center gap-3">
                                     <div className="p-2 bg-cyan-100/50 rounded-lg text-cyan-600 backdrop-blur-sm border border-cyan-100">
-                                        <Truck className="w-6 h-6" />
+                                        <Truck className="w-5 h-5 md:w-6 md:h-6" />
                                     </div>
-                                    <span className="text-cyan-600 font-bold tracking-[0.2em] uppercase text-xs">
+                                    <span className="text-cyan-600 font-bold tracking-[0.2em] uppercase text-[10px] md:text-xs">
                                         Intelligence-as-a-Utility
                                     </span>
                                 </div>
 
                                 <div className="space-y-4">
-                                    <h1 className="text-6xl md:text-[7rem] font-display font-bold text-slate-900 leading-[0.85] uppercase tracking-tighter">
+                                    <h1 className="text-5xl md:text-[6.5rem] lg:text-[7rem] font-display font-bold text-slate-900 leading-[0.85] uppercase tracking-tighter">
                                         Wity<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-indigo-500">Logix.</span>
                                     </h1>
-                                    <div className="text-3xl md:text-5xl font-display font-bold text-slate-400 uppercase tracking-tight flex flex-wrap items-center gap-x-4">
+                                    <div className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-slate-400 uppercase tracking-tight flex flex-wrap items-center gap-x-3 md:gap-x-4 min-h-[1.2em]">
                                         Optimizing
                                         <RotatingWord
                                             words={['Last Mile', 'Logistics', 'Supply Chains', 'Delivery Flows']}
@@ -69,9 +70,18 @@ export default function WityLogixProduct() {
                                     </div>
                                 </div>
 
-                                <p className="text-xl md:text-2xl text-slate-500 leading-relaxed font-headline max-w-2xl border-l-4 border-cyan-500/20 pl-6 py-2">
+                                <p className="text-lg md:text-xl lg:text-2xl text-slate-500 leading-relaxed font-headline max-w-2xl border-l-4 border-cyan-500/20 pl-4 md:pl-6 py-1 md:py-2">
                                     The definitive AI logistics layer for high-scale merchants. Industrial-grade precision for every node in your network.
                                 </p>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.3 }}
+                                className="relative aspect-video lg:aspect-square"
+                            >
+                                <NetworkAnimation />
                             </motion.div>
                         </div>
                     </div>

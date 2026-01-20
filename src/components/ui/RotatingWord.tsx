@@ -48,12 +48,9 @@ export default function RotatingWord({ words, className, interval = 2000 }: Prop
     };
 
     return (
-        <span className={`${className} inline-flex items-center`}>
+        <span className={`${className} inline-flex items-center relative min-h-[1.2em] min-w-[3ch]`}>
             <span>{text}</span>
             <span className="animate-pulse ml-0.5 inline-block w-[2px] h-[1em] bg-emerald-400 opacity-70" />
-
-            {/* Invisble placeholder to prevent layout shift if needed, checking height */}
-            {text === '' && <span className="opacity-0 w-0 inline-block">&nbsp;</span>}
         </span>
     );
 }
