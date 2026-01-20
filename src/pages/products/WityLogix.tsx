@@ -14,6 +14,11 @@ const platforms = [
 
 const features = [
     {
+        title: 'Neural Route Planning',
+        desc: 'Advanced MDVRP solver that optimizes routes in seconds, factoring in traffic, fleet capacity, and delivery windows.',
+        icon: <Zap className="w-8 h-8 text-cyan-400" />
+    },
+    {
         title: 'EV-First Routing',
         desc: 'Intelligent paths optimized for electric vehicle ranges and charging infrastructure proximity.',
         icon: <Zap className="w-8 h-8 text-emerald-400" />
@@ -27,6 +32,11 @@ const features = [
         title: 'Predictive Fulfillment',
         desc: 'AI that forecasts local demand 24 hours in advance to pre-position high-velocity inventory.',
         icon: <Cpu className="w-8 h-8 text-indigo-400" />
+    },
+    {
+        title: 'Instant Platform Sync',
+        desc: 'Robust webhook infrastructure to instantly ingest orders from e-commerce platforms for one-click dispatch.',
+        icon: <Settings className="w-8 h-8 text-orange-400" />
     },
     {
         title: 'Carbon-Zero Logic',
@@ -101,8 +111,30 @@ export default function WityLogixProduct() {
                     </div>
                 </section>
 
+                {/* Impact Results */}
+                <section className="bg-slate-50 py-16 border-y border-slate-200 mb-24">
+                    <div className="container mx-auto px-4 max-w-6xl text-center">
+                        <span className="text-cyan-600 font-bold tracking-wider uppercase text-sm mb-4 block underline decoration-cyan-500/30 decoration-4">The Impact</span>
+                        <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mb-12 uppercase">Delivering Tangible <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-emerald-500">ROI.</span></h2>
+                        <div className="grid md:grid-cols-3 gap-8">
+                            <div className="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm transition-all hover:translate-y-[-5px]">
+                                <div className="text-4xl lg:text-5xl font-bold text-cyan-600 mb-4">30%</div>
+                                <div className="text-slate-600 font-medium">Reduction in Delivery Costs</div>
+                            </div>
+                            <div className="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm transition-all hover:translate-y-[-5px]">
+                                <div className="text-4xl lg:text-5xl font-bold text-cyan-600 mb-4">99.2%</div>
+                                <div className="text-slate-600 font-medium">Network Efficiency Rating</div>
+                            </div>
+                            <div className="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm transition-all hover:translate-y-[-5px]">
+                                <div className="text-4xl lg:text-5xl font-bold text-cyan-600 mb-4">60%</div>
+                                <div className="text-slate-600 font-medium">Fewer WISMO tickets</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* Platforms Section */}
-                <section className="py-24 bg-slate-50 border-y border-slate-100">
+                <section className="py-24 bg-background border-b border-slate-100">
                     <div className="container mx-auto px-4 max-w-6xl">
                         <div className="text-center mb-16">
                             <h2 className="text-3xl font-display font-bold uppercase mb-4">Native Platform Mesh</h2>
@@ -144,12 +176,25 @@ export default function WityLogixProduct() {
                                 ))}
                             </div>
                             <div className="relative">
-                                <div className="p-12 bg-slate-900 rounded-[3rem] text-white aspect-square flex flex-col items-center justify-center text-center">
-                                    <div className="text-7xl font-bold text-cyan-400 mb-4">24%</div>
-                                    <h4 className="text-2xl font-display font-bold mb-4 uppercase">Operational Alpha</h4>
-                                    <p className="text-slate-400 max-w-xs">
-                                        WityLogix provides an immediate efficiency alpha by removing manual decision-making from the logistics chain.
-                                    </p>
+                                <div className="p-12 bg-slate-900 rounded-[3rem] text-white aspect-square flex flex-col items-center justify-center text-center relative overflow-hidden">
+                                    {/* Fake Map Grid decoration */}
+                                    <div className="absolute inset-0 opacity-10 pointer-events-none">
+                                        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                            <defs>
+                                                <pattern id="mapPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                                                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                                                </pattern>
+                                            </defs>
+                                            <rect width="100%" height="100%" fill="url(#mapPattern)" className="text-slate-500" />
+                                        </svg>
+                                    </div>
+                                    <div className="relative z-10">
+                                        <div className="text-7xl font-bold text-cyan-400 mb-4">24%</div>
+                                        <h4 className="text-2xl font-display font-bold mb-4 uppercase">Operational Alpha</h4>
+                                        <p className="text-slate-400 max-w-xs mx-auto">
+                                            WityLogix provides an immediate efficiency alpha by removing manual decision-making from the logistics chain.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -161,7 +206,7 @@ export default function WityLogixProduct() {
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none" />
                     <div className="container mx-auto max-w-4xl text-center relative z-10">
                         <h2 className="text-4xl md:text-6xl font-display font-bold text-slate-900 mb-8 uppercase">
-                            Secure your <span className="text-cyan-600">Last Mile.</span>
+                            Go Beyond the <span className="text-cyan-600">Last Mile.</span>
                         </h2>
                         <p className="text-xl text-slate-600 mb-12">
                             The most intelligent logistics utility ever built. Powered by Wityliti.
