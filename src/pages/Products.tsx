@@ -41,7 +41,7 @@ const products = [
       { label: 'Network Logic', value: 'Distributed' },
     ],
     features: ['Biomimetic routing algorithms', 'Real-time network visibility', 'Seamless Shopify integration'],
-    link: '/case-studies/scrollengine', // Keeping link for now as existing content
+    link: '/products/mycelia',
     externalUrl: 'https://scrollengine.com',
   },
   /*
