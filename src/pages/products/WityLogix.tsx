@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, CheckCircle2, Truck, Route, Cpu, Zap, Globe, ShoppingCart, Settings, ZapOff, Activity } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Truck, Route, Cpu, Zap, Globe, ShoppingCart, Settings, ZapOff, Activity, BarChart3, Database, Workflow } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -12,208 +12,217 @@ const platforms = [
     { name: 'Custom ERP', desc: 'RESTful API access', icon: <Cpu className="w-5 h-5" /> }
 ];
 
-const features = [
-    {
-        title: 'Neural Route Planning',
-        desc: 'Advanced MDVRP solver that optimizes routes in seconds, factoring in traffic, fleet capacity, and delivery windows.',
-        icon: <Zap className="w-8 h-8 text-cyan-400" />
-    },
-    {
-        title: 'EV-First Routing',
-        desc: 'Intelligent paths optimized for electric vehicle ranges and charging infrastructure proximity.',
-        icon: <Zap className="w-8 h-8 text-emerald-400" />
-    },
-    {
-        title: 'Swarm Intelligence',
-        desc: 'Collective fleet logic that self-corrects in real-time when drivers encounter obstacles or delays.',
-        icon: <Activity className="w-8 h-8 text-cyan-400" />
-    },
-    {
-        title: 'Predictive Fulfillment',
-        desc: 'AI that forecasts local demand 24 hours in advance to pre-position high-velocity inventory.',
-        icon: <Cpu className="w-8 h-8 text-indigo-400" />
-    },
-    {
-        title: 'Instant Platform Sync',
-        desc: 'Robust webhook infrastructure to instantly ingest orders from e-commerce platforms for one-click dispatch.',
-        icon: <Settings className="w-8 h-8 text-orange-400" />
-    },
-    {
-        title: 'Carbon-Zero Logic',
-        desc: 'Automated granular offsetting for every single mile, integrated directly into the delivery cost.',
-        icon: <ZapOff className="w-8 h-8 text-purple-400" />
-    }
-];
-
 export default function WityLogixProduct() {
     return (
         <div className="min-h-screen bg-background text-foreground selection:bg-cyan-500/30">
             <Header />
 
-            <main className="pt-32 pb-24">
-                {/* Hero Section */}
-                <section className="relative px-4 mb-24">
+            <main className="pt-32 pb-24 space-y-32">
+                {/* 1. Hero Section: Focused & Clean */}
+                <section className="px-4">
                     <div className="container mx-auto max-w-6xl">
                         <Link to="/products" className="inline-flex items-center gap-2 text-slate-500 hover:text-cyan-600 mb-8 transition-colors group">
                             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Products
                         </Link>
 
-                        <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        <div className="max-w-4xl">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 className="space-y-6"
                             >
-                                <div className="flex items-center gap-4">
-                                    <div className="p-3 bg-cyan-100 rounded-xl text-cyan-600">
-                                        <Truck className="w-8 h-8" />
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-cyan-100 rounded-lg text-cyan-600">
+                                        <Truck className="w-6 h-6" />
                                     </div>
-                                    <span className="text-cyan-600 font-bold tracking-wide uppercase text-sm bg-cyan-50 px-4 py-1.5 rounded-full border border-cyan-100">
+                                    <span className="text-cyan-600 font-bold tracking-widest uppercase text-xs">
                                         Intelligence-as-a-Utility
                                     </span>
                                 </div>
 
-                                <h1 className="text-5xl md:text-7xl font-display font-bold text-slate-900 leading-tight uppercase">
-                                    Wity<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-indigo-500">Logix AI.</span>
+                                <h1 className="text-6xl md:text-8xl font-display font-bold text-slate-900 leading-[0.9] uppercase tracking-tighter">
+                                    Wity<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-indigo-500">Logix.</span>
                                 </h1>
 
-                                <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
-                                    The definitive AI logistics layer for high-scale merchants. WityLogix orchestrates the last mile with industrial-grade precision and biological efficiency, powered by Wityliti's core grid.
+                                <p className="text-xl md:text-2xl text-slate-500 leading-relaxed font-headline max-w-2xl">
+                                    The definitive AI logistics layer for high-scale merchants. Industrial-grade precision for the last mile.
                                 </p>
+                            </motion.div>
+                        </div>
+                    </div>
+                </section>
 
-                                <div className="flex flex-wrap gap-4 pt-4">
-                                    {['Distributed Routing', 'Shopify & More', 'Carbon-Neutral'].map((tag) => (
-                                        <span key={tag} className="px-3 py-1 bg-slate-100 text-slate-600 rounded-lg text-sm font-medium">
-                                            {tag}
-                                        </span>
+                {/* 2. Impact Section: High Signal/Results */}
+                <section className="bg-slate-900 py-32 text-white overflow-hidden relative">
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
+
+                    <div className="container mx-auto px-4 max-w-6xl relative z-10">
+                        <div className="grid lg:grid-cols-2 gap-24 items-center">
+                            <div>
+                                <h2 className="text-4xl md:text-5xl font-display font-bold mb-8 uppercase leading-tight">
+                                    Quantifiable <br />
+                                    <span className="text-cyan-400">Operational Alpha.</span>
+                                </h2>
+                                <p className="text-slate-400 text-lg leading-relaxed mb-12">
+                                    WityLogix doesn't just route—it optimizes the entire financial unit of a delivery. By removing manual decision-making, we deliver immediate ROI.
+                                </p>
+                                <div className="flex flex-col gap-6">
+                                    {[
+                                        '30% Reduction in delivery overhead',
+                                        '99.2% Network utilization rating',
+                                        '60% Decrease in WISMO support tickets'
+                                    ].map((check) => (
+                                        <div key={check} className="flex items-center gap-4">
+                                            <div className="w-6 h-6 rounded-full bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center">
+                                                <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                                            </div>
+                                            <span className="text-slate-200 font-medium">{check}</span>
+                                        </div>
                                     ))}
                                 </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                                    <BarChart3 className="w-10 h-10 text-cyan-400 mb-4" />
+                                    <div className="text-4xl font-bold mb-2">30%</div>
+                                    <p className="text-sm text-slate-400 uppercase tracking-widest font-bold">Cost Saved</p>
+                                </div>
+                                <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm md:translate-y-8">
+                                    <Activity className="w-10 h-10 text-emerald-400 mb-4" />
+                                    <div className="text-4xl font-bold mb-2">99%</div>
+                                    <p className="text-sm text-slate-400 uppercase tracking-widest font-bold">Efficiency</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 3. Core Engine: Intelligence Section */}
+                <section className="px-4">
+                    <div className="container mx-auto max-w-6xl">
+                        <div className="text-center mb-24">
+                            <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-6">The Core Engine</h2>
+                            <p className="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
+                                Our proprietary MDVRP solver and swarm intelligence algorithms power every delivery decision.
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-16">
+                            <motion.div
+                                whileHover={{ y: -5 }}
+                                className="space-y-6 p-10 rounded-[2.5rem] bg-slate-50 border border-slate-100 transition-all hover:bg-white hover:shadow-2xl hover:shadow-cyan-500/5"
+                            >
+                                <div className="p-4 bg-cyan-100 rounded-2xl w-fit text-cyan-600">
+                                    <Zap className="w-8 h-8" />
+                                </div>
+                                <h3 className="text-3xl font-display font-bold uppercase">Neural Route Planning</h3>
+                                <p className="text-slate-600 leading-relaxed text-lg">
+                                    An advanced solver that processes thousands of variables in milliseconds—traffic, vehicle capacity, windows, and driver performance—to find the mathematically perfect path.
+                                </p>
                             </motion.div>
 
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.2 }}
-                                className="relative"
+                                whileHover={{ y: -5 }}
+                                className="space-y-6 p-10 rounded-[2.5rem] bg-slate-50 border border-slate-100 transition-all hover:bg-white hover:shadow-2xl hover:shadow-indigo-500/5"
                             >
-                                <div className="aspect-video rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-50 relative group">
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent mix-blend-multiply" />
-                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 to-black text-white p-12">
-                                        <div className="text-center">
-                                            <Globe className="w-20 h-20 text-cyan-500 mx-auto mb-6" />
-                                            <h3 className="text-2xl font-display font-bold tracking-widest uppercase">Global Logix Grid</h3>
-                                            <p className="text-slate-400 mt-2">Connecting Every Merchant to Every Mile</p>
-                                        </div>
-                                    </div>
+                                <div className="p-4 bg-indigo-100 rounded-2xl w-fit text-indigo-600">
+                                    <Activity className="w-8 h-8" />
                                 </div>
+                                <h3 className="text-3xl font-display font-bold uppercase">Swarm Intelligence</h3>
+                                <p className="text-slate-600 leading-relaxed text-lg">
+                                    Collective fleet logic that self-corrects in real-time. If one driver is delayed, the entire "hive" recalibrates to ensure fulfillment SLAs are never breached.
+                                </p>
                             </motion.div>
                         </div>
                     </div>
                 </section>
 
-                {/* Impact Results */}
-                <section className="bg-slate-50 py-16 border-y border-slate-200 mb-24">
-                    <div className="container mx-auto px-4 max-w-6xl text-center">
-                        <span className="text-cyan-600 font-bold tracking-wider uppercase text-sm mb-4 block underline decoration-cyan-500/30 decoration-4">The Impact</span>
-                        <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mb-12 uppercase">Delivering Tangible <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-emerald-500">ROI.</span></h2>
-                        <div className="grid md:grid-cols-3 gap-8">
-                            <div className="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm transition-all hover:translate-y-[-5px]">
-                                <div className="text-4xl lg:text-5xl font-bold text-cyan-600 mb-4">30%</div>
-                                <div className="text-slate-600 font-medium">Reduction in Delivery Costs</div>
-                            </div>
-                            <div className="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm transition-all hover:translate-y-[-5px]">
-                                <div className="text-4xl lg:text-5xl font-bold text-cyan-600 mb-4">99.2%</div>
-                                <div className="text-slate-600 font-medium">Network Efficiency Rating</div>
-                            </div>
-                            <div className="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm transition-all hover:translate-y-[-5px]">
-                                <div className="text-4xl lg:text-5xl font-bold text-cyan-600 mb-4">60%</div>
-                                <div className="text-slate-600 font-medium">Fewer WISMO tickets</div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Platforms Section */}
-                <section className="py-24 bg-background border-b border-slate-100">
+                {/* 4. Connectivity Section: Ecosystem Sync */}
+                <section className="bg-slate-50 py-32 border-y border-slate-200">
                     <div className="container mx-auto px-4 max-w-6xl">
-                        <div className="text-center mb-16">
-                            <h2 className="text-3xl font-display font-bold uppercase mb-4">Native Platform Mesh</h2>
-                            <p className="text-slate-600">Sync WityLogix with your entire stack in zero-deployment minutes.</p>
-                        </div>
-                        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-                            {platforms.map((platform) => (
-                                <div key={platform.name} className="flex flex-col items-center p-6 bg-white rounded-2xl border border-slate-100 shadow-sm transition-all hover:shadow-md">
-                                    <div className="mb-4 text-cyan-500">{platform.icon}</div>
-                                    <span className="font-bold text-slate-900">{platform.name}</span>
-                                    <span className="text-xs text-slate-500 mt-1">{platform.desc}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* Features Section */}
-                <section className="py-32 px-4">
-                    <div className="container mx-auto max-w-6xl">
                         <div className="grid lg:grid-cols-2 gap-24 items-center">
-                            <div className="space-y-12">
-                                {features.map((feature, i) => (
-                                    <motion.div
-                                        key={feature.title}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.1 }}
-                                        className="flex gap-6"
-                                    >
-                                        <div className="p-4 bg-slate-100 rounded-2xl h-fit border border-slate-200">
-                                            {feature.icon}
+                            <div className="order-2 lg:order-1">
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    {platforms.map((platform) => (
+                                        <div key={platform.name} className="p-6 bg-white rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center group hover:border-cyan-500/30 transition-colors">
+                                            <div className="text-slate-400 group-hover:text-cyan-500 transition-colors mb-4">{platform.icon}</div>
+                                            <span className="font-bold text-slate-900 text-sm tracking-tight">{platform.name}</span>
                                         </div>
-                                        <div>
-                                            <h3 className="text-2xl font-display font-bold mb-2 uppercase">{feature.title}</h3>
-                                            <p className="text-slate-600 leading-relaxed">{feature.desc}</p>
-                                        </div>
-                                    </motion.div>
-                                ))}
+                                    ))}
+                                    <div className="p-6 bg-slate-100 rounded-2xl border border-dashed border-slate-300 flex flex-col items-center justify-center text-center">
+                                        <Database className="w-5 h-5 text-slate-400 mb-2" />
+                                        <span className="text-xs font-bold text-slate-500 uppercase">API Native</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="relative">
-                                <div className="p-12 bg-slate-900 rounded-[3rem] text-white aspect-square flex flex-col items-center justify-center text-center relative overflow-hidden">
-                                    {/* Fake Map Grid decoration */}
-                                    <div className="absolute inset-0 opacity-10 pointer-events-none">
-                                        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                                            <defs>
-                                                <pattern id="mapPattern" width="40" height="40" patternUnits="userSpaceOnUse">
-                                                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                                                </pattern>
-                                            </defs>
-                                            <rect width="100%" height="100%" fill="url(#mapPattern)" className="text-slate-500" />
-                                        </svg>
+
+                            <div className="order-1 lg:order-2 space-y-8">
+                                <h2 className="text-4xl md:text-5xl font-display font-bold uppercase leading-tight">
+                                    The <span className="text-indigo-500">Platform</span> Mesh.
+                                </h2>
+                                <p className="text-slate-600 text-lg leading-relaxed">
+                                    WityLogix doesn't live in a silo. It connects natively to your existing storefront and ERP via a robust webhook infrastructure, enabling one-click dispatch from any data source.
+                                </p>
+                                <div className="flex items-center gap-6">
+                                    <div className="flex -space-x-3">
+                                        {[1, 2, 3, 4].map(i => <div key={i} className="w-12 h-12 rounded-full bg-slate-200 border-2 border-slate-50" />)}
                                     </div>
-                                    <div className="relative z-10">
-                                        <div className="text-7xl font-bold text-cyan-400 mb-4">24%</div>
-                                        <h4 className="text-2xl font-display font-bold mb-4 uppercase">Operational Alpha</h4>
-                                        <p className="text-slate-400 max-w-xs mx-auto">
-                                            WityLogix provides an immediate efficiency alpha by removing manual decision-making from the logistics chain.
-                                        </p>
-                                    </div>
+                                    <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">Connected Merchants</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* Call to Action */}
-                <section className="py-24 px-4 bg-background relative overflow-hidden">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none" />
-                    <div className="container mx-auto max-w-4xl text-center relative z-10">
-                        <h2 className="text-4xl md:text-6xl font-display font-bold text-slate-900 mb-8 uppercase">
-                            Go Beyond the <span className="text-cyan-600">Last Mile.</span>
+                {/* 5. Sustainability Section: The Future Layer */}
+                <section className="px-4 py-32 relative overflow-hidden">
+                    <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
+
+                    <div className="container mx-auto max-w-6xl relative z-10">
+                        <div className="flex flex-col md:flex-row items-end justify-between mb-24 gap-8">
+                            <div className="max-w-2xl">
+                                <h2 className="text-4xl md:text-6xl font-display font-bold uppercase mb-6 leading-none">Sustainable <br /> <span className="text-emerald-500">By Design.</span></h2>
+                                <p className="text-slate-600 text-xl leading-relaxed">Every mile saved is a gram of carbon removed. WityLogix builds environmental utility into the very core of its routing logic.</p>
+                            </div>
+                            <Workflow className="w-24 h-24 text-emerald-100 hidden md:block" />
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-12">
+                            <div className="flex gap-8 p-10 rounded-[3rem] bg-emerald-50/50 border border-emerald-100 group hover:bg-white transition-all">
+                                <Zap className="w-12 h-12 text-emerald-500 shrink-0" />
+                                <div>
+                                    <h4 className="text-2xl font-display font-bold mb-3 uppercase">EV-First Routing</h4>
+                                    <p className="text-slate-600 leading-relaxed">Intelligent paths optimized for electric vehicle ranges and charging proximity, ensuring your green fleet operates at peak availability.</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-8 p-10 rounded-[3rem] bg-purple-50/50 border border-purple-100 group hover:bg-white transition-all">
+                                <ZapOff className="w-12 h-12 text-purple-500 shrink-0" />
+                                <div>
+                                    <h4 className="text-2xl font-display font-bold mb-3 uppercase">Carbon-Zero Logic</h4>
+                                    <p className="text-slate-600 leading-relaxed">Automated granular offsetting for every single mile, integrated directly into the delivery cost for transparent planetary impact.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 6. CTA: High Focus */}
+                <section className="px-4 py-32 bg-slate-900 mx-4 md:mx-12 rounded-[4rem] text-center relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-transparent to-indigo-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+
+                    <div className="relative z-10 max-w-4xl mx-auto space-y-12">
+                        <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase leading-none tracking-tighter">
+                            Ready for the <br /> <span className="text-cyan-400 italic">Predictable</span> Future?
                         </h2>
-                        <p className="text-xl text-slate-600 mb-12">
-                            The most intelligent logistics utility ever built. Powered by Wityliti.
+                        <p className="text-slate-400 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed">
+                            Join the merchants defining the next era of sustainable last-mile logistics.
                         </p>
-                        <Link to="/contact" className="px-12 py-5 bg-slate-900 text-white rounded-full font-bold hover:bg-cyan-600 transition-all shadow-xl hover:shadow-cyan-500/20">
-                            Book a WityLogix Demo
-                        </Link>
+                        <div className="pt-8">
+                            <Link to="/contact" className="px-16 py-6 bg-cyan-500 text-slate-900 rounded-full font-bold text-xl hover:bg-white hover:scale-105 transition-all shadow-2xl shadow-cyan-500/20 active:scale-95">
+                                Start Your Implementation
+                            </Link>
+                        </div>
                     </div>
                 </section>
             </main>
