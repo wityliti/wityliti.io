@@ -18,6 +18,7 @@ const cases = [
     gradient: 'from-emerald-500/20 via-emerald-500/5 to-transparent',
     image: '/assets/case-studies/tese.svg'
   },
+  /*
   {
     id: 'scrollengine',
     client: 'scrollengine.com',
@@ -30,6 +31,7 @@ const cases = [
     gradient: 'from-cyan-500/20 via-cyan-500/5 to-transparent',
     image: '/assets/case-studies/scrollengine.svg'
   },
+  */
   {
     id: 'ogow',
     client: 'OGOW Health',

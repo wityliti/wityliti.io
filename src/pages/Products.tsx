@@ -3,7 +3,7 @@ import Footer from '@/components/Footer';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
   Leaf, Bike, ArrowRight, ExternalLink, Globe, BarChart3,
-  CheckCircle2, Satellite, Shield, Zap
+  CheckCircle2, Satellite, Shield, Zap, Truck
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -27,6 +27,25 @@ const products = [
     externalUrl: 'https://afforestation.org',
   },
   {
+    id: 'scrollengine',
+    name: 'ScrollEngine',
+    tagline: 'AI-Powered Logistics for Shopify',
+    description: 'Intelligent routing and real-time tracking that optimizes last-mile delivery for modern retail.',
+    status: 'Launching Soon',
+    statusColor: 'cyan',
+    icon: <Truck className="w-10 h-10" />,
+    gradient: 'from-cyan-500 to-cyan-600',
+    stats: [
+      { label: 'Routing Efficiency', value: '98%' },
+      { label: 'Daily Deliveries', value: '2k+' },
+      { label: 'Compatibility', value: 'Shopify' },
+    ],
+    features: ['AI routing algorithms', 'Real-time tracking dashboard', 'Seamless Shopify integration'],
+    link: '/case-studies/scrollengine', // Using existing case study link structure for now
+    externalUrl: 'https://scrollengine.com',
+  },
+  /*
+  {
     id: 'cyklo',
     name: 'CYKLO',
     tagline: 'Fair, Sustainable Last-Mile Delivery',
@@ -44,6 +63,7 @@ const products = [
     link: '/products/cyklo',
     externalUrl: 'https://cyklo.in',
   },
+  */
 ];
 
 const techStack = [
@@ -92,7 +112,7 @@ export default function Products() {
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10">
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                <span className="text-sm text-muted-foreground">2 Products Live</span>
+                <span className="text-sm text-muted-foreground">2 Products</span>
               </span>
               <span className="w-px h-4 bg-white/10" />
               <span className="flex items-center gap-2">
