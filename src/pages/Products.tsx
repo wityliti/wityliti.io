@@ -27,21 +27,21 @@ const products = [
     externalUrl: 'https://afforestation.org',
   },
   {
-    id: 'scrollengine',
-    name: 'ScrollEngine',
-    tagline: 'AI-Powered Logistics for Shopify',
-    description: 'Intelligent routing and real-time tracking that optimizes last-mile delivery for modern retail.',
+    id: 'mycelia',
+    name: 'Mycelia AI',
+    tagline: 'Bio-Inspired Logistics for the Last Mile',
+    description: 'Autonomous routing logic inspired by nature’s most efficient networks. Optimizing delivery flows with biological precision and zero-waste architecture.',
     status: 'Launching Soon',
     statusColor: 'cyan',
     icon: <Truck className="w-10 h-10" />,
     gradient: 'from-cyan-500 to-cyan-600',
     stats: [
-      { label: 'Routing Efficiency', value: '98%' },
+      { label: 'Routing Efficiency', value: '99%' },
       { label: 'Daily Deliveries', value: '2k+' },
-      { label: 'Compatibility', value: 'Shopify' },
+      { label: 'Network Logic', value: 'Distributed' },
     ],
-    features: ['AI routing algorithms', 'Real-time tracking dashboard', 'Seamless Shopify integration'],
-    link: '/case-studies/scrollengine', // Using existing case study link structure for now
+    features: ['Biomimetic routing algorithms', 'Real-time network visibility', 'Seamless Shopify integration'],
+    link: '/case-studies/scrollengine', // Keeping link for now as existing content
     externalUrl: 'https://scrollengine.com',
   },
   /*
