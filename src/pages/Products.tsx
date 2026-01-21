@@ -42,7 +42,7 @@ const products = [
     ],
     features: ['Swarm intelligence routing', 'Real-time network visibility', 'Multi-platform integration'],
     link: '/products/witylogix',
-    externalUrl: 'https://scrollengine.com',
+    externalUrl: '#',
   },
   /*
   {
