@@ -20,9 +20,16 @@ const navItems = [
       { name: 'Resilience Operations', path: '/resilience-ops' }
     ]
   },
-  { name: 'Case Studies', path: '/case-studies' },
-  { name: 'Blog', path: '/blog' },
+  {
+    name: 'Insights',
+    path: '#',
+    children: [
+      { name: 'Case Studies', path: '/case-studies' },
+      { name: 'Blog', path: '/blog' }
+    ]
+  },
   { name: 'About', path: '/about' },
+  { name: 'Contact', path: '/contact' },
 ];
 
 export default function Header() {
@@ -114,7 +121,7 @@ export default function Header() {
           </nav>
 
           {/* CTA */}
-          <Link to="/contact" className="bg-foreground text-background px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-emerald-400 hover:text-white transition-all hover:scale-105 active:scale-95">
+          <Link to="/start-project" className="bg-foreground text-background px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-emerald-400 hover:text-white transition-all hover:scale-105 active:scale-95">
             Start Project
           </Link>
         </div>

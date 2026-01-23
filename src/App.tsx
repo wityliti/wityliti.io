@@ -12,6 +12,7 @@ import ESGCompliance from "@/pages/ESGCompliance";
 import CloudSecurity from "@/pages/CloudSecurity";
 import ResilienceOps from "@/pages/ResilienceOps";
 import Contact from "@/pages/Contact";
+import StartProject from "@/pages/StartProject";
 import AfforestationProduct from "@/pages/products/Afforestation";
 import CykloProduct from "@/pages/products/Cyklo";
 import WityLogixProduct from "@/pages/products/WityLogix";
@@ -48,6 +49,7 @@ export default function App() {
         <Route path="/resilience-ops" element={<ResilienceOps />} />
         <Route path="/iot-solutions" element={<IoTSolutions />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/start-project" element={<StartProject />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/blog" element={<Blog />} />

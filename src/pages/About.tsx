@@ -1,8 +1,9 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Users, Target, Zap } from 'lucide-react';
+import { Users, Target, Zap, ArrowRight, MessageSquare } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const stats = [
   { label: 'Carbon Offset', value: '850', unit: 'Tons' },
@@ -224,6 +225,50 @@ export default function About() {
               </motion.div>
             </div>
           </div>
+
+          {/* Contact CTA Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="relative bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-purple-500/10 rounded-3xl p-10 md:p-16 border border-white/5 overflow-hidden">
+              {/* Background decoration */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+              <div className="relative z-10 text-center">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium mb-6">
+                  <MessageSquare className="w-4 h-4" />
+                  Let's Connect
+                </div>
+                <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
+                  Ready to Build the <span className="text-emerald-400">Future</span>?
+                </h2>
+                <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+                  Whether you have a question, a project idea, or just want to learn more about what we do—we'd love to hear from you.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    to="/contact"
+                    className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-semibold hover:bg-white/10 hover:border-white/20 transition-all"
+                  >
+                    Get in Touch
+                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                  <Link
+                    to="/start-project"
+                    className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-foreground text-background rounded-xl font-bold hover:bg-emerald-400 hover:text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    Start Your Project
+                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </main>
       <Footer />
