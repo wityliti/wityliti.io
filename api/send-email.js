@@ -5,46 +5,64 @@ export default async function handler(req, res) {
 
     const { name, email, details, type, timeline, budget } = req.body;
 
-    if (!process.env.BREVO_API_KEY) {
-        return res.status(500).json({ message: 'Missing API Key configuration' });
+    if (!process.env.SENDGRID_API_KEY) {
+        return res.status(500).json({ message: 'Missing SendGrid API Key configuration' });
     }
 
+    const fromEmail = process.env.SENDGRID_FROM_EMAIL || 'connect@wityliti.io';
+    const toEmail = process.env.SENDGRID_TO_EMAIL || 'youthocrat@gmail.com';
+
     try {
-        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+        const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
             method: 'POST',
             headers: {
-                'accept': 'application/json',
-                'api-key': process.env.BREVO_API_KEY,
-                'content-type': 'application/json'
+                'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`,
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                sender: { name: 'Wityliti Contact', email: 'connect@wityliti.io' },
-                to: [{ email: 'youthocrat@gmail.com', name: 'Wityliti Admin' }], // Ideally config from env too
-                subject: `New Project Inquiry: ${type} (${name})`,
-                htmlContent: `
-          <html>
-            <body>
-              <h2>New Project Inquiry</h2>
-              <p><strong>Name:</strong> ${name}</p>
-              <p><strong>Email:</strong> ${email}</p>
-              <hr />
-              <h3>Project Details</h3>
-              <ul>
-                <li><strong>Type:</strong> ${type}</li>
-                <li><strong>Timeline:</strong> ${timeline}</li>
-                <li><strong>Budget:</strong> ${budget}</li>
-              </ul>
-              <hr />
-              <h3>Description</h3>
-              <p>${details}</p>
-            </body>
-          </html>
-        `
+                personalizations: [{
+                    to: [{ email: toEmail, name: 'Wityliti Admin' }],
+                    subject: `New Project Inquiry: ${type} (${name})`
+                }],
+                from: { email: fromEmail, name: 'Wityliti Contact' },
+                reply_to: { email: email, name: name },
+                content: [{
+                    type: 'text/html',
+                    value: `
+                        <html>
+                            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 20px; background-color: #f9fafb;">
+                                <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; padding: 32px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                                    <h2 style="color: #10b981; margin-top: 0;">New Project Inquiry</h2>
+                                    
+                                    <div style="background: #f3f4f6; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                                        <p style="margin: 4px 0;"><strong>Name:</strong> ${name}</p>
+                                        <p style="margin: 4px 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+                                    </div>
+                                    
+                                    <h3 style="color: #374151;">Project Details</h3>
+                                    <ul style="background: #f3f4f6; padding: 16px 16px 16px 32px; border-radius: 8px;">
+                                        <li><strong>Type:</strong> ${type}</li>
+                                        <li><strong>Timeline:</strong> ${timeline}</li>
+                                        <li><strong>Budget:</strong> ${budget}</li>
+                                    </ul>
+                                    
+                                    <h3 style="color: #374151;">Description</h3>
+                                    <p style="background: #f3f4f6; padding: 16px; border-radius: 8px; white-space: pre-wrap;">${details || 'No additional details provided.'}</p>
+                                    
+                                    <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;">
+                                    <p style="color: #6b7280; font-size: 12px;">This email was sent from the Wityliti.io website contact form.</p>
+                                </div>
+                            </body>
+                        </html>
+                    `
+                }]
             })
         });
 
         if (!response.ok) {
-            throw new Error(`Brevo API Error: ${response.statusText}`);
+            const errorData = await response.text();
+            console.error('SendGrid Error:', errorData);
+            throw new Error(`SendGrid API Error: ${response.status}`);
         }
 
         return res.status(200).json({ success: true });
