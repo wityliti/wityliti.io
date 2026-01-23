@@ -1,12 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 import sgMail from '@sendgrid/mail';
+import OpenAI from 'openai';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Initialize SendGrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+// Initialize OpenAI
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 // Middleware
 app.use(cors({
@@ -21,6 +27,90 @@ app.get('/', (req, res) => {
   res.json({ status: 'ok', service: 'wityliti-api' });
 });
 
+// Extract domain from email
+function extractDomain(email) {
+  const domain = email.split('@')[1];
+  // Common personal email domains
+  const personalDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com', 'aol.com', 'protonmail.com', 'mail.com'];
+  return personalDomains.includes(domain) ? null : domain;
+}
+
+// Generate AI-personalized email content
+async function generatePersonalizedEmail(name, email, type, timeline, budget, details) {
+  const businessDomain = extractDomain(email);
+
+  const projectTypeDescriptions = {
+    'web': 'Web Platform (SaaS, Dashboard, or Website)',
+    'mobile': 'Mobile App (iOS, Android, or Cross-platform)',
+    'ai': 'AI Solution (LLMs, Predictive Models, or Automation)',
+    'iot': 'IoT System (Hardware Integration & Sensor Networks)'
+  };
+
+  const timelineDescriptions = {
+    'urgent': 'less than 1 month (urgent)',
+    'standard': '1-3 months (standard MVP)',
+    'relaxed': '3-6 months (enterprise scale)',
+    'ongoing': 'ongoing long-term retainer'
+  };
+
+  const budgetDescriptions = {
+    'micro': 'under $10k (small scope)',
+    'small': '$10k-$50k (medium scope)',
+    'medium': '$50k-$100k (large scope)',
+    'large': '$100k+ (enterprise)'
+  };
+
+  const wityliliServices = `
+Wityliti.io offers:
+1. Climate Tech Solutions - Sustainability software, carbon tracking, ESG compliance
+2. Cyber Security - Zero-trust architecture, penetration testing, cloud security
+3. Custom Software Development - Web platforms, mobile apps, AI solutions
+4. IoT & Sensor Networks - Hardware integration, real-time monitoring
+5. Products: Afforestation (Shopify CO2 offset), WityLogix (AI logistics), Cyklo (crypto platform)
+    `;
+
+  const prompt = `You are a friendly business development specialist at Wityliti.io, a climate tech and cyber security company.
+
+A potential client just submitted an inquiry. Create a warm, personalized thank-you email that:
+1. Feels human and genuine, not corporate or robotic
+2. References their specific project needs
+3. Shows you understand their timeline and budget constraints
+4. ${businessDomain ? `Briefly mention you noticed they're from ${businessDomain} - show genuine interest in their work (be subtle, don't be creepy)` : 'Connect with them personally'}
+5. Suggest specific Wityliti services that match their needs
+6. Create urgency without being pushy
+7. End with a clear next step
+
+CLIENT DETAILS:
+- Name: ${name}
+- Email: ${email}
+- Business Domain: ${businessDomain || 'Personal email'}
+- Project Type: ${projectTypeDescriptions[type] || type}
+- Timeline: ${timelineDescriptions[timeline] || timeline}
+- Budget: ${budgetDescriptions[budget] || budget}
+- Their Description: ${details || 'Not provided'}
+
+${wityliliServices}
+
+Write ONLY the email body content (no subject line, no HTML tags, just plain text that will be formatted later).
+Keep it under 200 words. Be warm, professional but casual. Sign off as "The Wityliti Team".
+Don't use generic phrases like "I hope this email finds you well". Be creative and genuine.`;
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.8,
+      max_tokens: 500
+    });
+
+    return completion.choices[0].message.content;
+  } catch (error) {
+    console.error('OpenAI Error:', error.message);
+    // Fallback to template if AI fails
+    return null;
+  }
+}
+
 // Send email endpoint
 app.post('/api/send-email', async (req, res) => {
   const { name, email, details, type, timeline, budget } = req.body;
@@ -31,6 +121,24 @@ app.post('/api/send-email', async (req, res) => {
 
   const fromEmail = process.env.SENDGRID_FROM_EMAIL || 'connect@wityliti.io';
   const toEmail = process.env.SENDGRID_TO_EMAIL || 'sushil@wityliti.io';
+
+  // Generate AI-personalized content
+  let personalizedContent = await generatePersonalizedEmail(name, email, type, timeline, budget, details);
+
+  // Fallback content if AI fails
+  const fallbackContent = `Hey ${name}!
+
+Thanks for reaching out about your ${type || 'project'}. We're genuinely excited to learn more about what you're building.
+
+We've noted your timeline and budget, and our team is already thinking about how we can help bring your vision to life. Expect to hear from us within 24 hours with some initial thoughts.
+
+In the meantime, feel free to book a quick call if you'd like to chat sooner: https://wityliti.io/contact
+
+Looking forward to this!
+
+The Wityliti Team`;
+
+  const emailContent = personalizedContent || fallbackContent;
 
   // Email to admin
   const adminMsg = {
@@ -47,6 +155,7 @@ app.post('/api/send-email', async (req, res) => {
             <div style="background: #f3f4f6; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
               <p style="margin: 4px 0;"><strong>Name:</strong> ${name}</p>
               <p style="margin: 4px 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+              <p style="margin: 4px 0;"><strong>Domain:</strong> ${extractDomain(email) || 'Personal'}</p>
             </div>
             
             <h3 style="color: #374151;">Project Details</h3>
@@ -60,45 +169,36 @@ app.post('/api/send-email', async (req, res) => {
             <p style="background: #f3f4f6; padding: 16px; border-radius: 8px; white-space: pre-wrap;">${details || 'No additional details provided.'}</p>
             
             <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;">
-            <p style="color: #6b7280; font-size: 12px;">This email was sent from the Wityliti.io website contact form.</p>
+            
+            <h3 style="color: #374151;">AI-Generated Response Sent:</h3>
+            <div style="background: #ecfdf5; padding: 16px; border-radius: 8px; border-left: 4px solid #10b981;">
+              <p style="white-space: pre-wrap; margin: 0;">${emailContent}</p>
+            </div>
+            
+            <p style="color: #6b7280; font-size: 12px; margin-top: 16px;">This email was sent from the Wityliti.io website contact form.</p>
           </div>
         </body>
       </html>
     `
   };
 
-  // Confirmation email to the person who submitted
+  // Personalized email to the person who submitted
   const userMsg = {
     to: email,
     from: { email: fromEmail, name: 'Wityliti' },
-    subject: `Thank you for contacting Wityliti!`,
+    subject: `${name}, thanks for reaching out! 🚀`,
     html: `
       <html>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 20px; background-color: #0a0a0a;">
           <div style="max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%); border-radius: 16px; padding: 40px; border: 1px solid rgba(255,255,255,0.1);">
-            <div style="text-align: center; margin-bottom: 32px;">
-              <h1 style="color: #10b981; margin: 0; font-size: 28px;">Thank You, ${name}!</h1>
-              <p style="color: #9ca3af; margin-top: 8px;">We've received your project inquiry</p>
+            
+            <div style="margin-bottom: 24px;">
+              <p style="color: #e5e7eb; font-size: 16px; line-height: 1.7; white-space: pre-wrap;">${emailContent}</p>
             </div>
             
-            <div style="background: rgba(255,255,255,0.05); padding: 24px; border-radius: 12px; margin-bottom: 24px;">
-              <h3 style="color: #ffffff; margin-top: 0;">Your Submission Summary</h3>
-              <table style="width: 100%; color: #d1d5db;">
-                <tr><td style="padding: 8px 0; color: #9ca3af;">Project Type:</td><td style="padding: 8px 0;">${type || 'Not specified'}</td></tr>
-                <tr><td style="padding: 8px 0; color: #9ca3af;">Timeline:</td><td style="padding: 8px 0;">${timeline || 'Not specified'}</td></tr>
-                <tr><td style="padding: 8px 0; color: #9ca3af;">Budget:</td><td style="padding: 8px 0;">${budget || 'Not specified'}</td></tr>
-              </table>
+            <div style="text-align: center; margin: 32px 0;">
+              <a href="https://wityliti.io/contact" style="display: inline-block; background: #10b981; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600;">Book a Discovery Call</a>
             </div>
-            
-            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 20px; border-radius: 12px; margin-bottom: 24px;">
-              <p style="color: #10b981; margin: 0; font-weight: 600;">What happens next?</p>
-              <p style="color: #d1d5db; margin: 8px 0 0 0; font-size: 14px;">Our team will review your requirements and get back to you within 24 hours with a tailored proposal.</p>
-            </div>
-            
-            <p style="color: #9ca3af; font-size: 14px; text-align: center;">
-              In the meantime, feel free to book a discovery call:
-              <a href="https://wityliti.io/contact" style="color: #10b981; text-decoration: none;"> Schedule a Meeting</a>
-            </p>
             
             <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 24px 0;">
             <p style="color: #6b7280; font-size: 12px; text-align: center;">
