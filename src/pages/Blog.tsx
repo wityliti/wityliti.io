@@ -43,7 +43,7 @@ const blogPosts: BlogPost[] = [
         id: 'afforestation-launch',
         title: 'Wityliti Launches Afforestation.org - Entering Climate & Nature Tech',
         excerpt: 'Announcing our flagship climate-tech platform that goes beyond carbon offsets to build resilient ecosystems through the Grow App, Seed Revolution, and Nature Bank.',
-        date: 'December 15, 2022',
+        date: 'January 25, 2026',
         readTime: '7 min read',
         tags: ['Launch', 'Climate Tech', 'Nature Tech'],
     }
