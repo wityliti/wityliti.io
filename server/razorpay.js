@@ -268,17 +268,21 @@ export async function createRazorpaySubscription(userId, planId) {
     // Create order for one-time payment (fallback)
     console.log('Creating Razorpay order (no plan_id configured)')
     try {
+      // Receipt must be <= 40 chars, use short format
+      const shortUserId = userId.split('-')[0] // First segment of UUID
+      const receipt = `rs_${shortUserId}_${Date.now().toString(36)}` // Max ~25 chars
+      
       const order = await razorpay.orders.create({
         amount: plan.price_inr * 100, // Amount in paise
         currency: 'INR',
-        receipt: `order_${userId}_${Date.now()}`,
+        receipt: receipt,
         notes: {
           user_id: userId,
           plan_id: planId,
           plan_name: plan.name
         }
       })
-      console.log('Order created:', order.id)
+      console.log('Order created:', order.id, 'receipt:', receipt)
 
       return {
         type: 'order',
