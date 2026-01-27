@@ -2,6 +2,24 @@ import express from 'express';
 import cors from 'cors';
 import sgMail from '@sendgrid/mail';
 import OpenAI from 'openai';
+import {
+  verifyPaymentToken,
+  createPaymentToken,
+  getSubscriptionPlans,
+  getSubscriptionPlan,
+  getUserProfile,
+  createRazorpaySubscription,
+  handlePaymentSuccess,
+  handleWebhook,
+  verifyWebhookSignature,
+  cancelSubscription
+} from './razorpay.js';
+import {
+  validateTokenPayload,
+  sanitizeInput,
+  verifySignatureMiddleware,
+  paymentRateLimitMiddleware
+} from './security.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -16,8 +34,16 @@ const openai = new OpenAI({
 
 // Middleware
 app.use(cors({
-  origin: ['https://wityliti.io', 'http://localhost:5001', 'http://localhost:5173'],
-  methods: ['POST', 'OPTIONS'],
+  origin: [
+    'https://wityliti.io',
+    'http://localhost:5001',
+    'http://localhost:5173',
+    'https://evaluate.railsahayak.com',
+    'http://localhost:5174',
+    'capacitor://localhost',
+    'ionic://localhost'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
 app.use(express.json());
@@ -25,6 +51,215 @@ app.use(express.json());
 // Health check
 app.get('/', (req, res) => {
   res.json({ status: 'ok', service: 'wityliti-api' });
+});
+
+// ============================================
+// RailSahayak Payment Routes
+// ============================================
+
+/**
+ * Get available subscription plans
+ */
+app.get('/api/railsahayak/plans', async (req, res) => {
+  try {
+    const plans = await getSubscriptionPlans();
+    res.json({ success: true, data: plans });
+  } catch (error) {
+    console.error('Error fetching plans:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch plans' });
+  }
+});
+
+/**
+ * Validate payment token and get session data
+ * Called by wityliti.io frontend to verify the payment session
+ */
+app.post('/api/railsahayak/validate-session', paymentRateLimitMiddleware, async (req, res) => {
+  try {
+    const { token } = req.body;
+    
+    if (!token) {
+      return res.status(400).json({ success: false, error: 'Token required' });
+    }
+
+    // Sanitize input
+    const sanitizedToken = sanitizeInput(token);
+
+    const decoded = verifyPaymentToken(sanitizedToken);
+    if (!decoded) {
+      return res.status(401).json({ success: false, error: 'Invalid or expired token' });
+    }
+
+    // Validate token payload structure
+    const validation = validateTokenPayload(decoded);
+    if (!validation.valid) {
+      console.error('Token payload validation failed:', validation.error);
+      return res.status(400).json({ success: false, error: 'Invalid token payload' });
+    }
+
+    // Get user and plan details
+    const [user, plan] = await Promise.all([
+      getUserProfile(decoded.user_id),
+      getSubscriptionPlan(decoded.plan_id)
+    ]);
+
+    if (!user || !plan) {
+      return res.status(404).json({ success: false, error: 'User or plan not found' });
+    }
+
+    res.json({
+      success: true,
+      data: {
+        user: {
+          id: user.id,
+          email: user.email,
+          full_name: user.full_name,
+          organization: user.organization
+        },
+        plan: {
+          id: plan.id,
+          name: plan.name,
+          price_inr: plan.price_inr,
+          features: plan.features,
+          trial_days: plan.trial_days
+        },
+        action: decoded.action, // 'subscribe' or 'change_plan'
+        return_url: decoded.return_url
+      }
+    });
+  } catch (error) {
+    console.error('Session validation error:', error);
+    res.status(500).json({ success: false, error: 'Validation failed' });
+  }
+});
+
+/**
+ * Initialize Razorpay checkout
+ * Creates subscription/order and returns checkout options
+ */
+app.post('/api/railsahayak/create-checkout', async (req, res) => {
+  try {
+    const { token } = req.body;
+    
+    if (!token) {
+      return res.status(400).json({ success: false, error: 'Token required' });
+    }
+
+    const decoded = verifyPaymentToken(token);
+    if (!decoded) {
+      return res.status(401).json({ success: false, error: 'Invalid or expired token' });
+    }
+
+    const checkoutOptions = await createRazorpaySubscription(decoded.user_id, decoded.plan_id);
+
+    res.json({
+      success: true,
+      data: {
+        ...checkoutOptions,
+        user_id: decoded.user_id,
+        plan_id: decoded.plan_id,
+        return_url: decoded.return_url
+      }
+    });
+  } catch (error) {
+    console.error('Checkout creation error:', error);
+    res.status(500).json({ success: false, error: error.message || 'Failed to create checkout' });
+  }
+});
+
+/**
+ * Handle successful payment callback
+ */
+app.post('/api/railsahayak/payment-success', async (req, res) => {
+  try {
+    const { 
+      razorpay_payment_id, 
+      razorpay_order_id, 
+      razorpay_subscription_id,
+      razorpay_signature,
+      user_id,
+      plan_id
+    } = req.body;
+
+    if (!razorpay_payment_id || !razorpay_signature) {
+      return res.status(400).json({ success: false, error: 'Missing payment data' });
+    }
+
+    const result = await handlePaymentSuccess({
+      razorpay_payment_id,
+      razorpay_order_id,
+      razorpay_subscription_id,
+      razorpay_signature,
+      user_id,
+      plan_id
+    });
+
+    res.json({ success: true, data: result });
+  } catch (error) {
+    console.error('Payment success handling error:', error);
+    res.status(500).json({ success: false, error: error.message || 'Payment verification failed' });
+  }
+});
+
+/**
+ * Razorpay webhook endpoint
+ */
+app.post('/api/railsahayak/webhook', async (req, res) => {
+  try {
+    const signature = req.headers['x-razorpay-signature'];
+    
+    // Verify webhook signature
+    if (process.env.RAZORPAY_WEBHOOK_SECRET && signature) {
+      const isValid = verifyWebhookSignature(req.body, signature);
+      if (!isValid) {
+        console.error('Invalid webhook signature');
+        return res.status(400).json({ error: 'Invalid signature' });
+      }
+    }
+
+    const { event, payload } = req.body;
+    await handleWebhook(event, payload);
+
+    res.json({ status: 'ok' });
+  } catch (error) {
+    console.error('Webhook error:', error);
+    res.status(500).json({ error: 'Webhook processing failed' });
+  }
+});
+
+/**
+ * Cancel subscription (admin use)
+ */
+app.post('/api/railsahayak/cancel-subscription', async (req, res) => {
+  try {
+    const { token, subscription_id } = req.body;
+    
+    // Verify admin token
+    const decoded = verifyPaymentToken(token);
+    if (!decoded || !decoded.is_admin) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    const result = await cancelSubscription(subscription_id);
+    res.json({ success: true, data: result });
+  } catch (error) {
+    console.error('Cancellation error:', error);
+    res.status(500).json({ success: false, error: 'Cancellation failed' });
+  }
+});
+
+/**
+ * Get Razorpay key ID (public)
+ */
+app.get('/api/railsahayak/config', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      razorpay_key_id: process.env.RAZORPAY_KEY_ID,
+      trial_days: 7,
+      grace_period_days: 7
+    }
+  });
 });
 
 // Extract domain from email

@@ -23,6 +23,7 @@ import IsoftPartnership from "@/pages/blog/IsoftPartnership";
 import CyfinitiAcquisition from "@/pages/blog/CyfinitiAcquisition";
 import TesePartnership from "@/pages/blog/TesePartnership";
 import AfforestationLaunch from "@/pages/blog/AfforestationLaunch";
+import Pay from "@/pages/Pay";
 
 import TeseCaseStudy from "@/pages/case-studies/Tese";
 import OgowCaseStudy from "@/pages/case-studies/Ogow";
@@ -57,6 +58,9 @@ export default function App() {
         <Route path="/blog/cyfiniti-acquisition" element={<CyfinitiAcquisition />} />
         <Route path="/blog/tese-partnership" element={<TesePartnership />} />
         <Route path="/blog/afforestation-launch" element={<AfforestationLaunch />} />
+        
+        {/* RailSahayak Payment Page */}
+        <Route path="/pay" element={<Pay />} />
       </Routes>
     </Router>
   );
