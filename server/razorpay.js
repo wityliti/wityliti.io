@@ -101,6 +101,15 @@ export async function getUserProfile(userId) {
  * Create or get Razorpay customer
  */
 export async function getOrCreateRazorpayCustomer(user) {
+  // Check Razorpay credentials
+  if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+    console.error('Razorpay credentials not configured:', {
+      hasKeyId: !!process.env.RAZORPAY_KEY_ID,
+      hasKeySecret: !!process.env.RAZORPAY_KEY_SECRET
+    })
+    throw new Error('Razorpay credentials not configured on server')
+  }
+
   // Check if user already has a Razorpay customer ID
   const { data: subscription } = await supabase
     .from('subscriptions')
@@ -109,21 +118,33 @@ export async function getOrCreateRazorpayCustomer(user) {
     .single()
 
   if (subscription?.razorpay_customer_id) {
+    console.log('Found existing Razorpay customer:', subscription.razorpay_customer_id)
     return subscription.razorpay_customer_id
   }
 
   // Create new Razorpay customer
-  const customer = await razorpay.customers.create({
-    name: user.full_name || user.email,
-    email: user.email,
-    contact: user.phone || undefined,
-    notes: {
-      user_id: user.id,
-      organization: user.organization || ''
-    }
-  })
-
-  return customer.id
+  console.log('Creating new Razorpay customer for:', user.email)
+  try {
+    const customer = await razorpay.customers.create({
+      name: user.full_name || user.email,
+      email: user.email,
+      contact: user.phone || undefined,
+      notes: {
+        user_id: user.id,
+        organization: user.organization || ''
+      }
+    })
+    console.log('Razorpay customer created:', customer.id)
+    return customer.id
+  } catch (error) {
+    console.error('Razorpay customer creation failed:', {
+      message: error.message,
+      error: error.error,
+      statusCode: error.statusCode,
+      description: error.error?.description
+    })
+    throw new Error('Razorpay API error: ' + (error.error?.description || error.message || 'Unknown error'))
+  }
 }
 
 /**
