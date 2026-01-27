@@ -145,12 +145,22 @@ app.post('/api/railsahayak/create-checkout', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Token required' });
     }
 
+    // Check Razorpay credentials
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+      console.error('Razorpay credentials not configured');
+      return res.status(500).json({ success: false, error: 'Payment system not configured' });
+    }
+
     const decoded = verifyPaymentToken(token);
     if (!decoded) {
       return res.status(401).json({ success: false, error: 'Invalid or expired token' });
     }
 
+    console.log('Creating checkout for user:', decoded.user_id, 'plan:', decoded.plan_id);
+
     const checkoutOptions = await createRazorpaySubscription(decoded.user_id, decoded.plan_id);
+
+    console.log('Checkout created successfully:', checkoutOptions.type);
 
     res.json({
       success: true,
@@ -162,8 +172,12 @@ app.post('/api/railsahayak/create-checkout', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Checkout creation error:', error);
-    res.status(500).json({ success: false, error: error.message || 'Failed to create checkout' });
+    console.error('Checkout creation error:', error.message, error.stack);
+    // Return more detailed error in development, generic in production
+    const errorMessage = process.env.NODE_ENV === 'production' 
+      ? 'Failed to create checkout' 
+      : error.message || 'Failed to create checkout';
+    res.status(500).json({ success: false, error: errorMessage, details: error.message });
   }
 });
 

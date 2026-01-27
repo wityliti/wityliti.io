@@ -130,93 +130,119 @@ export async function getOrCreateRazorpayCustomer(user) {
  * Create Razorpay subscription
  */
 export async function createRazorpaySubscription(userId, planId) {
+  console.log('createRazorpaySubscription called:', { userId, planId })
+  
   const plan = await getSubscriptionPlan(planId)
   if (!plan) {
+    console.error('Plan not found:', planId)
     throw new Error('Plan not found')
   }
+  console.log('Plan found:', plan.name, 'price:', plan.price_inr)
 
   const user = await getUserProfile(userId)
   if (!user) {
+    console.error('User not found:', userId)
     throw new Error('User not found')
   }
+  console.log('User found:', user.email)
 
   // Get or create Razorpay customer
-  const customerId = await getOrCreateRazorpayCustomer(user)
+  let customerId
+  try {
+    customerId = await getOrCreateRazorpayCustomer(user)
+    console.log('Customer ID:', customerId)
+  } catch (error) {
+    console.error('Failed to create Razorpay customer:', error.message)
+    throw new Error('Failed to create customer: ' + error.message)
+  }
 
   // Check if plan has Razorpay plan ID, if not create order instead
   if (plan.razorpay_plan_id) {
-    // Create subscription
-    const subscription = await razorpay.subscriptions.create({
-      plan_id: plan.razorpay_plan_id,
-      customer_id: customerId,
-      total_count: 12, // 12 months
-      quantity: 1,
-      customer_notify: 1,
-      start_at: Math.floor(Date.now() / 1000) + (TRIAL_DAYS * 24 * 60 * 60), // Start after trial
-      notes: {
+    console.log('Creating Razorpay subscription with plan:', plan.razorpay_plan_id)
+    try {
+      // Create subscription
+      const subscription = await razorpay.subscriptions.create({
+        plan_id: plan.razorpay_plan_id,
+        customer_id: customerId,
+        total_count: 12, // 12 months
+        quantity: 1,
+        customer_notify: 1,
+        start_at: Math.floor(Date.now() / 1000) + (TRIAL_DAYS * 24 * 60 * 60), // Start after trial
+        notes: {
+          user_id: userId,
+          plan_id: planId,
+          plan_name: plan.name
+        }
+      })
+
+      // Store subscription in database
+      const trialEndsAt = new Date()
+      trialEndsAt.setDate(trialEndsAt.getDate() + TRIAL_DAYS)
+
+      await supabase.from('subscriptions').upsert({
         user_id: userId,
         plan_id: planId,
-        plan_name: plan.name
+        razorpay_subscription_id: subscription.id,
+        razorpay_customer_id: customerId,
+        status: 'trial',
+        trial_ends_at: trialEndsAt.toISOString(),
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'user_id' })
+
+      return {
+        type: 'subscription',
+        subscription_id: subscription.id,
+        short_url: subscription.short_url,
+        key_id: process.env.RAZORPAY_KEY_ID,
+        amount: plan.price_inr * 100,
+        currency: 'INR',
+        name: 'RailSahayak',
+        description: `${plan.name} Plan - Monthly Subscription`,
+        customer_id: customerId,
+        prefill: {
+          name: user.full_name || '',
+          email: user.email,
+          contact: user.phone || ''
+        }
       }
-    })
-
-    // Store subscription in database
-    const trialEndsAt = new Date()
-    trialEndsAt.setDate(trialEndsAt.getDate() + TRIAL_DAYS)
-
-    await supabase.from('subscriptions').upsert({
-      user_id: userId,
-      plan_id: planId,
-      razorpay_subscription_id: subscription.id,
-      razorpay_customer_id: customerId,
-      status: 'trial',
-      trial_ends_at: trialEndsAt.toISOString(),
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }, { onConflict: 'user_id' })
-
-    return {
-      type: 'subscription',
-      subscription_id: subscription.id,
-      short_url: subscription.short_url,
-      key_id: process.env.RAZORPAY_KEY_ID,
-      amount: plan.price_inr * 100,
-      currency: 'INR',
-      name: 'RailSahayak',
-      description: `${plan.name} Plan - Monthly Subscription`,
-      customer_id: customerId,
-      prefill: {
-        name: user.full_name || '',
-        email: user.email,
-        contact: user.phone || ''
-      }
+    } catch (error) {
+      console.error('Failed to create Razorpay subscription:', error.message)
+      throw new Error('Failed to create subscription: ' + error.message)
     }
   } else {
     // Create order for one-time payment (fallback)
-    const order = await razorpay.orders.create({
-      amount: plan.price_inr * 100, // Amount in paise
-      currency: 'INR',
-      receipt: `order_${userId}_${Date.now()}`,
-      notes: {
-        user_id: userId,
-        plan_id: planId,
-        plan_name: plan.name
-      }
-    })
+    console.log('Creating Razorpay order (no plan_id configured)')
+    try {
+      const order = await razorpay.orders.create({
+        amount: plan.price_inr * 100, // Amount in paise
+        currency: 'INR',
+        receipt: `order_${userId}_${Date.now()}`,
+        notes: {
+          user_id: userId,
+          plan_id: planId,
+          plan_name: plan.name
+        }
+      })
+      console.log('Order created:', order.id)
 
-    return {
-      type: 'order',
-      order_id: order.id,
-      key_id: process.env.RAZORPAY_KEY_ID,
-      amount: plan.price_inr * 100,
-      currency: 'INR',
-      name: 'RailSahayak',
-      description: `${plan.name} Plan - Monthly Subscription`,
-      prefill: {
-        name: user.full_name || '',
-        email: user.email,
-        contact: user.phone || ''
+      return {
+        type: 'order',
+        order_id: order.id,
+        key_id: process.env.RAZORPAY_KEY_ID,
+        amount: plan.price_inr * 100,
+        currency: 'INR',
+        name: 'RailSahayak',
+        description: `${plan.name} Plan - Monthly Subscription`,
+        prefill: {
+          name: user.full_name || '',
+          email: user.email,
+          contact: user.phone || ''
+        }
       }
+    } catch (error) {
+      console.error('Failed to create Razorpay order:', error.message, error.error)
+      throw new Error('Failed to create order: ' + (error.error?.description || error.message))
     }
   }
 }
