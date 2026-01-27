@@ -110,7 +110,7 @@ export async function getOrCreateRazorpayCustomer(user) {
     throw new Error('Razorpay credentials not configured on server')
   }
 
-  // Check if user already has a Razorpay customer ID
+  // Check if user already has a Razorpay customer ID in our database
   const { data: subscription } = await supabase
     .from('subscriptions')
     .select('razorpay_customer_id')
@@ -118,8 +118,25 @@ export async function getOrCreateRazorpayCustomer(user) {
     .single()
 
   if (subscription?.razorpay_customer_id) {
-    console.log('Found existing Razorpay customer:', subscription.razorpay_customer_id)
+    console.log('Found existing Razorpay customer in DB:', subscription.razorpay_customer_id)
     return subscription.razorpay_customer_id
+  }
+
+  // Try to find existing customer in Razorpay by email
+  console.log('Checking for existing Razorpay customer by email:', user.email)
+  try {
+    const customers = await razorpay.customers.all({
+      count: 10
+    })
+    
+    // Find customer by email
+    const existingCustomer = customers.items?.find(c => c.email === user.email)
+    if (existingCustomer) {
+      console.log('Found existing Razorpay customer by email:', existingCustomer.id)
+      return existingCustomer.id
+    }
+  } catch (error) {
+    console.log('Could not search customers, will try to create:', error.message)
   }
 
   // Create new Razorpay customer
@@ -137,6 +154,22 @@ export async function getOrCreateRazorpayCustomer(user) {
     console.log('Razorpay customer created:', customer.id)
     return customer.id
   } catch (error) {
+    // If customer already exists, try to fetch by email again
+    if (error.error?.description?.includes('already exists')) {
+      console.log('Customer exists error, fetching all customers to find match...')
+      try {
+        // Fetch customers and find by email
+        const customers = await razorpay.customers.all({ count: 100 })
+        const existingCustomer = customers.items?.find(c => c.email === user.email)
+        if (existingCustomer) {
+          console.log('Found existing customer after conflict:', existingCustomer.id)
+          return existingCustomer.id
+        }
+      } catch (fetchError) {
+        console.error('Failed to fetch existing customer:', fetchError.message)
+      }
+    }
+    
     console.error('Razorpay customer creation failed:', {
       message: error.message,
       error: error.error,
