@@ -36,6 +36,7 @@ const openai = new OpenAI({
 app.use(cors({
   origin: [
     'https://wityliti.io',
+    'https://www.wityliti.io',
     'http://localhost:5001',
     'http://localhost:5173',
     'https://evaluate.railsahayak.com',
@@ -77,7 +78,7 @@ app.get('/api/railsahayak/plans', async (req, res) => {
 app.post('/api/railsahayak/validate-session', paymentRateLimitMiddleware, async (req, res) => {
   try {
     const { token } = req.body;
-    
+
     if (!token) {
       return res.status(400).json({ success: false, error: 'Token required' });
     }
@@ -140,7 +141,7 @@ app.post('/api/railsahayak/validate-session', paymentRateLimitMiddleware, async 
 app.post('/api/railsahayak/create-checkout', async (req, res) => {
   try {
     const { token } = req.body;
-    
+
     if (!token) {
       return res.status(400).json({ success: false, error: 'Token required' });
     }
@@ -174,8 +175,8 @@ app.post('/api/railsahayak/create-checkout', async (req, res) => {
   } catch (error) {
     console.error('Checkout creation error:', error.message, error.stack);
     // Return more detailed error in development, generic in production
-    const errorMessage = process.env.NODE_ENV === 'production' 
-      ? 'Failed to create checkout' 
+    const errorMessage = process.env.NODE_ENV === 'production'
+      ? 'Failed to create checkout'
       : error.message || 'Failed to create checkout';
     res.status(500).json({ success: false, error: errorMessage, details: error.message });
   }
@@ -186,9 +187,9 @@ app.post('/api/railsahayak/create-checkout', async (req, res) => {
  */
 app.post('/api/railsahayak/payment-success', async (req, res) => {
   try {
-    const { 
-      razorpay_payment_id, 
-      razorpay_order_id, 
+    const {
+      razorpay_payment_id,
+      razorpay_order_id,
       razorpay_subscription_id,
       razorpay_signature,
       user_id,
@@ -221,7 +222,7 @@ app.post('/api/railsahayak/payment-success', async (req, res) => {
 app.post('/api/railsahayak/webhook', async (req, res) => {
   try {
     const signature = req.headers['x-razorpay-signature'];
-    
+
     // Verify webhook signature
     if (process.env.RAZORPAY_WEBHOOK_SECRET && signature) {
       const isValid = verifyWebhookSignature(req.body, signature);
@@ -247,7 +248,7 @@ app.post('/api/railsahayak/webhook', async (req, res) => {
 app.post('/api/railsahayak/cancel-subscription', async (req, res) => {
   try {
     const { token, subscription_id } = req.body;
-    
+
     // Verify admin token
     const decoded = verifyPaymentToken(token);
     if (!decoded || !decoded.is_admin) {
