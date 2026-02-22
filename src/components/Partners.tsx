@@ -85,6 +85,15 @@ export default function Partners() {
                             className="h-14 w-auto object-contain transition-all duration-300"
                         />
                     </a>
+
+                    {/* Dostel */}
+                    <a href="#" target="_blank" rel="noopener noreferrer" className="transition-transform hover:scale-110">
+                        <img
+                            src="/assets/case-studies/dostel.jpeg"
+                            alt="Dostel"
+                            className="h-14 w-auto object-contain transition-all duration-300"
+                        />
+                    </a>
                 </div>
             </div>
         </section>
